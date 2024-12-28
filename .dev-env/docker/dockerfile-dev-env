@@ -1,0 +1,57 @@
+FROM ubuntu:22.04
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 定義構建過程中使用的參數
+# DEBIAN_FRONTEND=noninteractive 用於設置 apt-get 命令的默認值以避免交互式提示與 apt-get install -y 一起使用.
+# '-y' 用於自動回答 "yes", 但 '-y' 無法處理更複雜的交互提示, e.g. 需要用戶輸入信息或選擇選項.
+ARG DEBIAN_FRONTEND=noninteractive
+ARG DEFAULT_USER=dev
+ARG WORKDIR=/home/$DEFAULT_USER/workdir
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 更新系統、安裝基本工具, node.js, 並清理快取
+RUN apt-get update \
+    && apt-get install -y \
+        curl \
+        sudo \
+        tree \
+        vim \
+        wget \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest \
+    && npm cache clean --force \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 創建非 root 用戶並配置 sudo 權限
+# 賦予 DEFAULT_USER 任何用戶 (包括 root) 和任何組的身份執行命令 (包括 sudo) 的權限,
+# 且不需要輸入密碼 (包括 sudo) 
+# Note:
+#   這個操作會將 DEFAULT_USER 提升為 sudoer, 這違反了 Dockerfile 的 best practice.
+#   所以請確保這個 Dockerfile 只用於本地開發, 不要用於生產環境.
+#   這個操作的目的是為了方便 DEFAULT_USER 在容器內進行開發, 簡化本地開發環境的配置.
+RUN useradd -ms /bin/bash $DEFAULT_USER \
+    && echo "${DEFAULT_USER} ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 設置預設工作目錄
+WORKDIR ${WORKDIR}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 切換到非 root 用戶
+USER ${DEFAULT_USER}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 複製並設置 entrypoint 腳本
+# Reference:
+#   - https://github.com/docker-library/postgres/blob/master/17/alpine3.21/Dockerfile
+#   - https://github.com/redis/docker-library-redis/blob/master/7.4/alpine/Dockerfile
+#   - https://github.com/docker-library/memcached/blob/master/1/alpine/Dockerfile
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 預設命令
+CMD ["bash"]
