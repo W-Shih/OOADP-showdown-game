@@ -1,0 +1,42 @@
+# Node.js dependencies
+node_modules
+npm-debug.log
+package-lock.json
+
+# src files
+src/*
+
+# Docker-related files
+dockerfile
+docker-compose.yml
+.dockerignore
+
+# IDE/editor-specific files
+.idea
+.vscode
+*.swp
+
+# Logs and debugging output
+logs
+*.log
+debug.log
+error.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp
+temp
+*.tmp
+
+# Test-related files
+coverage/*
+tests/*
+*.spec.ts
+*.test.ts
+
+# git-related files
+.git
+.gitignore
