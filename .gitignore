@@ -1,3 +1,15 @@
+# docker example
+dockerfile.example
+
+# package.json example
+package.example.jsonc
+
+# tsconfig.json example
+tsconfig.example.jsonc
+
+# .vscode configs
+.vscode
+
 # Logs
 logs
 *.log
