@@ -1,0 +1,65 @@
+# NOTE:
+#   .dockerignore 是基於 build context 目錄，而不是 Dockerfile 所在的目錄
+#   所以 .dockerignore 必須放在 build context 目錄下，而不是 Dockerfile 所在的目錄
+
+# doc-related files
+docs/
+
+# script files
+scripts/
+
+# Test-related files
+coverage/
+tests/
+*.spec.ts
+*.test.ts
+
+# .example files
+.eslint*.example
+*.example.*
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# sensitive files
+*.pem
+*.key
+*.crt
+*.csr
+
+# Node.js dependencies
+node_modules/
+npm-debug.log
+
+# Docker-related files
+.docker/
+.dockerignore
+
+# IDE/editor-specific files
+.idea
+.vscode
+*.swp
+
+# Logs and debugging output
+logs
+*.log
+debug.log
+error.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp
+temp
+*.tmp
+
+# git-related files
+.git
+.gitignore
+.gitattributes

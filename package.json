@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean:build && npm run lint && tsc",
+    "build:image": "ts-node scripts/docker/buildDockerImage.ts",
 
     "clean": "npm run clean:build && npm run clean:coverage && npm run clean:node_modules",
     "clean:build": "shx rm -rf dist",
@@ -16,7 +17,7 @@
 
     "start": "ts-node --files src",
     "start:container": "npm run build:image && ts-node scripts/docker/startDockerContainer.ts",
-    
+
     "test": "mocha -r ts-node/register --require source-map-support/register --recursive 'tests/**/*.spec.ts'",
     "test:file": "mocha -r ts-node/register --require source-map-support/register --recursive --exit",
     "test:coverage": "c8 --reporter=lcov --reporter=text --reporter=json-summary -- npm test"
