@@ -1,3 +1,10 @@
+# .example files
+.eslint*.example
+*.example.*
+
+# .vscode configs
+.vscode
+
 # Logs
 logs
 *.log
