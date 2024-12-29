@@ -5,6 +5,9 @@
 # .vscode configs
 .vscode
 
+# vagrant
+.vagrant
+
 # Logs
 logs
 *.log
