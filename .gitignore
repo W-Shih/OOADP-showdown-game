@@ -10,6 +10,9 @@ tsconfig.example.jsonc
 # .vscode configs
 .vscode
 
+# vagrant
+.vagrant
+
 # Logs
 logs
 *.log
