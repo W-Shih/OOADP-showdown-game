@@ -6,8 +6,11 @@ version: '3.8'
 services:
   project-dev-env:
     build:
-      context: .
-      dockerfile: dockerfile-dev-env
+      # Note:
+      #   由於 configure-bashrc.sh 與 dockerfile 不在同一目錄下, 所以 docker image build 時必須指定 build context 
+      #   為 .dev-env 目錄, 並且指定 dockerfile 為 docker/dockerfile-dev-env
+      context: ../
+      dockerfile: docker/dockerfile-dev-env
       args:
         DEFAULT_USER: ${DEFAULT_USER:-dev}
         WORKDIR: /home/${DEFAULT_USER:-dev}/workdir
