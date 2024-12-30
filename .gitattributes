@@ -1,0 +1,27 @@
+# .gitattributes 用於告訴 Git 如何處理特定文件類型. 確保項目在不同環境下的一致性, 並減少因文件格式差異導致的問題.
+# 通常用於指定文件的類型, 以及如何處理文件的行結尾. Git 會根據 .gitattributes 文件中的規則來處理文件.
+# .gitattributes 文件的優先級高於 git config 的設置, .gitattributes 文件中的規則可以覆蓋 .gitconfig 文件中的配置.
+
+# 確保 Shell 腳本始終使用 LF (避免 /bin/bash^M 錯誤) 
+*.sh text eol=lf
+
+# 確保 windows batch 文件始終使用 CRLF
+*.bat text eol=crlf
+
+# 確保 JSON 文件始終使用 LF
+*.json text eol=lf
+
+# 確保 Markdown 文件始終使用 LF
+*.md text eol=lf
+
+# 確保所有文本文件自動處理行結尾 (自動根據平台調整) 
+# * text=auto 不會覆蓋之前為特定文件類型設置的規則. 這是因為 Git 在應用 .gitattributes 規則時
+# 是按照文件匹配的優先級來應用的, 而不是按照順序覆蓋. 更具體的規則會覆蓋更廣泛的規則, 因此放置順序並不影響優先級. 
+# 最佳實踐
+#   - 具體規則先定義, 廣泛規則後定義. 雖然順序不會影響優先級, 但這樣的寫法更清晰, 便於閱讀和維護. 
+* text=auto
+
+# 禁止行結尾自動轉換的文件 (如二進制文件) 
+*.png binary
+*.jpg binary
+*.exe binary

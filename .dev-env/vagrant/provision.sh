@@ -14,6 +14,7 @@ if ! command -v node &> /dev/null; then
   apt-get update \
       && apt-get install -y \
           curl \
+          dos2unix \
           wget \
           tree \
           sudo
