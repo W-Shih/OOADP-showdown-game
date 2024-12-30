@@ -1,14 +1,8 @@
 #!/bin/bash
 
 # ---------------------------------------------------------------------------------------------------------------------
-# 設置高亮提示符的檢查與設置
-if grep -q "#force_color_prompt=yes" ~/.bashrc; then
-  echo "Enabling force_color_prompt in .bashrc..."
-  sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/' ~/.bashrc
-  source ~/.bashrc
-else
-  echo "force_color_prompt is already enabled."
-fi
+# 運行 configure_bashrc.sh
+../shared/configure_bashrc.sh
 
 # ---------------------------------------------------------------------------------------------------------------------
 # 檢查 Node.js 是否已安裝
@@ -41,4 +35,6 @@ else
   npm -v
 fi
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Provisioning completed
 echo "Provisioning completed successfully!"
