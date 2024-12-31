@@ -54,10 +54,12 @@ USER ${DEFAULT_USER}
 #   由於 configure-bashrc.sh 與 dockerfile 不在同一目錄下, 所以 docker image build 時必須指定 build context 
 #   為 .dev-env 目錄, e.g. 
 #     $ docker build -t dev-env-image -f docker/dockerfile-dev-env .dev-env
-COPY ./shared/configure-bashrc.sh /usr/local/bin/
-COPY ./docker/docker-entrypoint.sh /usr/local/bin/
-RUN sudo dos2unix /usr/local/bin/*.sh
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+ENV BIN_DIR=/usr/local/bin
+ENV PATH=$BIN_DIR:$PATH
+COPY ./shared/configure-bashrc.sh ${BIN_DIR}
+COPY ./docker/docker-entrypoint.sh ${BIN_DIR}
+RUN sudo dos2unix ${BIN_DIR}/*.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 # ---------------------------------------------------------------------------------------------------------------------
 # 預設命令

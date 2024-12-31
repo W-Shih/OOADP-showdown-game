@@ -8,8 +8,14 @@ set -e
 
 # ---------------------------------------------------------------------------------------------------------------------
 # 運行 configure_bashrc.sh
-/usr/local/bin/configure-bashrc.sh
+configure-bashrc.sh
 
 # ---------------------------------------------------------------------------------------------------------------------
-# 執行任何傳遞給 entrypoint 的命令
-exec "$@"
+# 檢查是否有傳入參數 by CMD or command, 若無則啟動 bash
+if [[ $# -eq 0 ]]; then
+  echo "No command provided, starting bash..."
+  exec bash
+else
+  echo "Executing provided command: $@"
+  exec "$@"
+fi
