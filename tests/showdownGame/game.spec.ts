@@ -5,7 +5,7 @@ import sinon from 'sinon';
 
 // --------------------------------------------------------------------------------------------------------------------
 // Project modules
-import { Game, Player } from '../../src/showdownGame';
+import { Deck, Game, Player } from '../../src/showdownGame';
 import { createCards } from '../helpers/cards';
 import { MockDeck } from '../helpers/deck';
 import { MockPlayer } from '../helpers/player';
@@ -36,15 +36,15 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
 
             const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
             for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
                 promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
             }
 
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -64,14 +64,6 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
-
             // P1 exchanges hands with P2 at round 1
             const p1 = players[0];
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
@@ -80,7 +72,14 @@ describe('Game', () => {
             });
             sandbox.stub(p1, 'askExchangePlayerIdx').returns(1);  // P2
 
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -100,14 +99,6 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
-
             // P1 exchanges hands with P4 at round 1
             const p1 = players[0];
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
@@ -116,7 +107,14 @@ describe('Game', () => {
             });
             sandbox.stub(p1, 'askExchangePlayerIdx').returns(3);  // P4
 
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -136,14 +134,6 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
-
             // P4 exchanges hands with P1 at round 11
             const p4 = players[3];
             let callCount = 0;
@@ -157,7 +147,14 @@ describe('Game', () => {
             });
             sandbox.stub(p4, 'askExchangePlayerIdx').returns(0);  // P1
 
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -178,14 +175,6 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
-
             // P1 exchanges hands with P4 at round 1
             const p1 = players[0];
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
@@ -202,7 +191,14 @@ describe('Game', () => {
             });
             sandbox.stub(p4, 'askExchangePlayerIdx').returns(0);  // P1
 
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -222,14 +218,6 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
-
             // P3 exchanges hands with P1 at round 11
             const p3 = players[2];
             let callCount = 0;
@@ -243,7 +231,14 @@ describe('Game', () => {
             });
             sandbox.stub(p3, 'askExchangePlayerIdx').returns(0);  // P1
 
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -264,14 +259,6 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
-
             // P3 exchanges hands with P1 at round 11
             const p3 = players[2];
             let callCountForP3 = 0;
@@ -298,7 +285,14 @@ describe('Game', () => {
             });
             sandbox.stub(p1, 'askExchangePlayerIdx').returns(2);  // P3
 
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -320,13 +314,6 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
-
             // P1 exchanges hands with P4 at round 1
             const p1 = players[0];
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
@@ -361,7 +348,14 @@ describe('Game', () => {
             });
             sandbox.stub(p3, 'askExchangePlayerIdx').returns(3);  // P4
 
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -383,13 +377,6 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
-
             // P1 exchanges hands with P4 at round 1
             const p1 = players[0];
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
@@ -424,7 +411,14 @@ describe('Game', () => {
             });
             sandbox.stub(p3, 'askExchangePlayerIdx').returns(1);  // P2
 
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
             const consoleSpy = sandbox.spy(console, 'log');
+
+            const game = new Game(players, deck, promptStub);
 
             // When
             await game.start();
@@ -444,18 +438,19 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const game = new Game(players, deck);
-            const promptStub = sinon.stub();
-            game.setPrompt(promptStub);
-            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
-            }
             const p1 = players[0];
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
                 this._canExchangeHands = false;
                 return true;
             });
             sandbox.stub(p1, 'askExchangePlayerIdx').returns(NUM_PLAYERS);  // player index is out of range
+
+            const promptStub = sinon.stub();
+            for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+                promptStub.withArgs(`Please input the name for P${playerIdx + 1}: `).resolves(`P${playerIdx + 1}`);
+            }
+
+            const game = new Game(players, deck, promptStub);
 
             // When & Then
             try {
@@ -479,9 +474,10 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
+            const deck = new Deck(createCards());
 
             // When
-            const game = new Game(players);
+            const game = new Game(players, deck);
 
             // Then
             expect(game).to.be.an.instanceOf(Game);
@@ -495,10 +491,11 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
+            const deck = new Deck(createCards());
 
             // When & Then
             try {
-                new Game(players);
+                new Game(players, deck);
                 expect.fail('Expected error was not thrown');
             }
             catch (error) {
@@ -517,10 +514,11 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
+            const deck = new Deck(createCards());
 
             // When & Then
             try {
-                new Game(players);
+                new Game(players, deck);
                 expect.fail('Expected error was not thrown');
             }
             catch (error) {

@@ -27,15 +27,15 @@ describe('AiPlayer', () => {
     describe('show()', () => {
         it('should always return the topmost card', () => {
             // Given
-            const player = new AiPlayer();
+            const randomIntStub = sinon.stub().returns(0);
+            const player = new AiPlayer(undefined, randomIntStub);
+
             const cards = [
                 new Card(Rank.ACE, Suit.SPADES),
                 new Card(Rank.KING, Suit.HEARTS),
                 new Card(Rank.QUEEN, Suit.DIAMONDS),
             ];
             addCardsToPlayer(player, cards);
-            const randomIntStub = sinon.stub().returns(0);
-            player.setRandomInt(randomIntStub);
 
             // When
             const card1 = player.show();
@@ -53,18 +53,18 @@ describe('AiPlayer', () => {
         // ------------------------------------------------------------------------------------------------------------
         it('should always return the last card', () => {
             // Given
-            const player = new AiPlayer();
+            const randomIntStub = sinon.stub();
+            const player = new AiPlayer(undefined, randomIntStub);
             const cards = [
                 new Card(Rank.ACE, Suit.SPADES),
                 new Card(Rank.KING, Suit.HEARTS),
                 new Card(Rank.QUEEN, Suit.DIAMONDS),
             ];
             addCardsToPlayer(player, cards);
-            const randomIntStub = sinon.stub();
+
             randomIntStub.onCall(0).returns(cards.length - 1);
             randomIntStub.onCall(1).returns(cards.length - 2);
             randomIntStub.onCall(2).returns(cards.length - 3);
-            player.setRandomInt(randomIntStub);
 
             // When
             const card1 = player.show();
@@ -96,9 +96,9 @@ describe('AiPlayer', () => {
     describe('askExchangeHands()', () => {
         it('should return true', () => {
             // Given
-            const player = new AiPlayer();
             const randomBooleanStub = sinon.stub().returns(true);
-            player.setRandomBoolean(randomBooleanStub);
+            // player.setRandomBoolean(randomBooleanStub);
+            const player = new AiPlayer(randomBooleanStub);
 
             // When
             const result = player.askExchangeHands();
@@ -111,9 +111,9 @@ describe('AiPlayer', () => {
         // ------------------------------------------------------------------------------------------------------------
         it('should return false', () => {
             // Given
-            const player = new AiPlayer();
             const randomBooleanStub = sinon.stub().returns(false);
-            player.setRandomBoolean(randomBooleanStub);
+            // player.setRandomBoolean(randomBooleanStub);
+            const player = new AiPlayer(randomBooleanStub);
 
             // When
             const result = player.askExchangeHands();
@@ -128,10 +128,9 @@ describe('AiPlayer', () => {
     describe('askExchangePlayerIdx()', () => {
         it('should return 1', () => {
             // Given
-            const player = new AiPlayer();
-            const selfIdx = 0;
             const randomIntStub = sinon.stub().returns(1);
-            player.setRandomInt(randomIntStub);
+            const player = new AiPlayer(undefined, randomIntStub);
+            const selfIdx = 0;
 
             // When
             const result = player.askExchangePlayerIdx(selfIdx);
@@ -143,14 +142,13 @@ describe('AiPlayer', () => {
         // ------------------------------------------------------------------------------------------------------------
         it(`should return ${NUM_PLAYERS - 1}`, () => {
             // Given
-            const player = new AiPlayer();
-            const selfIdx = 0;
             const randomIntStub = sinon.stub();
             randomIntStub.onCall(0).returns(0);
             randomIntStub.onCall(1).returns(0);
             randomIntStub.onCall(2).returns(0);
             randomIntStub.onCall(3).returns(NUM_PLAYERS - 1);
-            player.setRandomInt(randomIntStub);
+            const player = new AiPlayer(undefined, randomIntStub);
+            const selfIdx = 0;
 
             // When
             const result = player.askExchangePlayerIdx(selfIdx);

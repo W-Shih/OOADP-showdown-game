@@ -8,14 +8,13 @@ import { NUM_CARDS } from './constants';
 // --------------------------------------------------------------------------------------------------------------------
 class Deck {
     private _cards!: Card[];
-    private _randomInt: (typeof defaultRandomInt) = defaultRandomInt;
+    private _randomInt: (typeof defaultRandomInt);
 
-    public constructor(cards: Card[]) {
+    public constructor(
+        cards: Card[],
+        randomInt: (typeof defaultRandomInt) = defaultRandomInt
+    ) {
         this._setCards(cards);
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-    public setRandomInt(randomInt: (typeof defaultRandomInt)) {
         this._randomInt = randomInt;
     }
 

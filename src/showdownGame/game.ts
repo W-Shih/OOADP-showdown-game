@@ -1,30 +1,25 @@
 // --------------------------------------------------------------------------------------------------------------------
 // Project modules
-import { Card, Rank, Suit } from './card';
 import { NUM_CARDS_PER_PLAYER, NUM_PLAYERS, NUM_ROUNDS_FOR_EXCHANGE } from './constants';
-import { prompt as dafaultPrompt } from '../utils';
+import { Card } from './card';
 import { Deck } from './deck';
+import { prompt as defaultPrompt } from '../utils';
 import { Player } from './player';
 
 
 // --------------------------------------------------------------------------------------------------------------------
 class Game {
-    private _deck!: Deck;
+    private _deck: Deck;
     private _players!: Player[];
     private _playerExchangeInfos: (ExchangeInfo | null)[] = [null, null, null, null];
-    private _prompt: (typeof dafaultPrompt) = dafaultPrompt;
-    constructor(players: Player[], deck?: Deck) {
+    private _prompt: (typeof defaultPrompt);
+    public constructor(
+        players: Player[],
+        deck: Deck,
+        prompt: (typeof defaultPrompt) = defaultPrompt
+    ) {
         this._setPlayers(players);
-        if (deck) {
-            this._deck = deck;
-        }
-        else {
-            this._initDeck();
-        }
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-    public setPrompt(prompt: (typeof dafaultPrompt)): void {
+        this._deck = deck;
         this._prompt = prompt;
     }
 
@@ -223,18 +218,6 @@ class Game {
             throw new Error(`The number of players must be ${NUM_PLAYERS}`);
         }
         this._players = players;
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-    private _initDeck(): void {
-        const cards = [];
-        for (let rank = Rank.TWO; rank <= Rank.ACE; rank++) {
-            for (let suit = Suit.CLUBS; suit <= Suit.SPADES; suit++) {
-                const card = new Card(rank, suit);
-                cards.push(card);
-            }
-        }
-        this._deck = new Deck(cards);
     }
 }
 

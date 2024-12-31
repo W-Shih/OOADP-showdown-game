@@ -27,15 +27,14 @@ describe('HumanPlayer', () => {
     describe('show()', () => {
         it('should always return the topmost card', async () => {
             // Given
-            const player = new HumanPlayer();
+            const promptStub = sinon.stub().resolves('0');
+            const player = new HumanPlayer(promptStub);
             const cards = [
                 new Card(Rank.ACE, Suit.SPADES),
                 new Card(Rank.KING, Suit.HEARTS),
                 new Card(Rank.QUEEN, Suit.DIAMONDS),
             ];
             addCardsToPlayer(player, cards);
-            const promptStub = sinon.stub().resolves('0');
-            player.setPrompt(promptStub);
 
             // When
             const card1 = await player.show();
@@ -53,19 +52,18 @@ describe('HumanPlayer', () => {
         // ------------------------------------------------------------------------------------------------------------
         it('should always return the last card', async () => {
             // Given
-            const player = new HumanPlayer();
+            const promptStub = sinon.stub();
+            const player = new HumanPlayer(promptStub);
             const cards = [
                 new Card(Rank.ACE, Suit.SPADES),
                 new Card(Rank.KING, Suit.HEARTS),
                 new Card(Rank.QUEEN, Suit.DIAMONDS),
             ];
             addCardsToPlayer(player, cards);
-            const promptStub = sinon.stub();
-            player.setPrompt(promptStub);
+
             promptStub.onCall(0).resolves(`${cards.length - 1}`);
             promptStub.onCall(1).resolves(`${cards.length - 2}`);
             promptStub.onCall(2).resolves(`${cards.length - 3}`);
-            player.setPrompt(promptStub);
 
             // When
             const card1 = await player.show();
@@ -83,20 +81,19 @@ describe('HumanPlayer', () => {
         // ------------------------------------------------------------------------------------------------------------
         it('should return the card', async () => {
             // Given
-            const player = new HumanPlayer();
+            const promptStub = sinon.stub();
+            const player = new HumanPlayer(promptStub);
             const cards = [
                 new Card(Rank.ACE, Suit.SPADES),
             ];
             addCardsToPlayer(player, cards);
-            const promptStub = sinon.stub();
-            player.setPrompt(promptStub);
+
             promptStub.onCall(0).resolves('-1');
             promptStub.onCall(1).resolves(`${cards.length}`);
             promptStub.onCall(2).resolves('abc');
             promptStub.onCall(2).resolves(' ');
             promptStub.onCall(3).resolves('0.5');
             promptStub.onCall(4).resolves('0');
-            player.setPrompt(promptStub);
 
             // When
             const card = await player.show();
@@ -122,12 +119,11 @@ describe('HumanPlayer', () => {
     describe('askExchangeHands()', () => {
         it('should return true', async () => {
             // Given
-            const player = new HumanPlayer();
             const promptStub = sinon.stub();
             promptStub.onCall(0).resolves('0');
             promptStub.onCall(1).resolves('1');
             promptStub.onCall(2).resolves('y');
-            player.setPrompt(promptStub);
+            const player = new HumanPlayer(promptStub);
 
             // When
             const result = await player.askExchangeHands();
@@ -140,12 +136,11 @@ describe('HumanPlayer', () => {
         // ------------------------------------------------------------------------------------------------------------
         it('should return false', async () => {
             // Given
-            const player = new HumanPlayer();
             const promptStub = sinon.stub();
             promptStub.onCall(0).resolves('0');
             promptStub.onCall(1).resolves('1');
             promptStub.onCall(2).resolves('n');
-            player.setPrompt(promptStub);
+            const player = new HumanPlayer(promptStub);
 
             // When
             const result = await player.askExchangeHands();
@@ -160,15 +155,15 @@ describe('HumanPlayer', () => {
     describe('askExchangePlayerIdx()', () => {
         it('should return 1', async () => {
             // Given
-            const player = new HumanPlayer();
-            const selfIdx = 0;
             const promptStub = sinon.stub();
             promptStub.onCall(0).resolves('0');
             promptStub.onCall(1).resolves(`${NUM_PLAYERS}`);
             promptStub.onCall(2).resolves('n');
             promptStub.onCall(2).resolves('1.5');
             promptStub.onCall(3).resolves('1');
-            player.setPrompt(promptStub);
+            const player = new HumanPlayer(promptStub);
+
+            const selfIdx = 0;
 
             // When
             const result = await player.askExchangePlayerIdx(selfIdx);
@@ -180,15 +175,15 @@ describe('HumanPlayer', () => {
         // ------------------------------------------------------------------------------------------------------------
         it(`should return ${NUM_PLAYERS - 1}`, async () => {
             // Given
-            const player = new HumanPlayer();
-            const selfIdx = 0;
             const promptStub = sinon.stub();
             promptStub.onCall(0).resolves('0');
             promptStub.onCall(1).resolves(`${NUM_PLAYERS}`);
             promptStub.onCall(2).resolves('n');
             promptStub.onCall(2).resolves('1.5');
             promptStub.onCall(3).resolves(`${NUM_PLAYERS - 1}`);
-            player.setPrompt(promptStub);
+            const player = new HumanPlayer(promptStub);
+
+            const selfIdx = 0;
 
             // When
             const result = await player.askExchangePlayerIdx(selfIdx);

@@ -29,9 +29,8 @@ describe('Deck', () => {
             // Given
             const cards = createCards();
             const originalCards = JSON.parse(JSON.stringify(cards));
-            const deck = new Deck(cards);
             const randomIntStub = sinon.stub().returns(0);
-            deck.setRandomInt(randomIntStub);
+            const deck = new Deck(cards, randomIntStub);
 
             // When
             deck.shuffle();

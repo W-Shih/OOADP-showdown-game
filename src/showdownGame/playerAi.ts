@@ -8,16 +8,14 @@ import { Player } from './player';
 
 // --------------------------------------------------------------------------------------------------------------------
 class AiPlayer extends Player {
-    private _randomBoolean: (typeof defaultRandomBoolean) = defaultRandomBoolean;
-    private _randomInt: (typeof defaultRandomInt) = defaultRandomInt;
-
-    // ----------------------------------------------------------------------------------------------------------------
-    public setRandomBoolean(randomBoolean: (typeof defaultRandomBoolean)) {
+    private _randomBoolean: (typeof defaultRandomBoolean);
+    private _randomInt: (typeof defaultRandomInt);
+    public constructor(
+        randomBoolean: (typeof defaultRandomBoolean) = defaultRandomBoolean,
+        randomInt: (typeof defaultRandomInt) = defaultRandomInt
+    ) {
+        super();
         this._randomBoolean = randomBoolean;
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-    public setRandomInt(randomInt: (typeof defaultRandomInt)) {
         this._randomInt = randomInt;
     }
 

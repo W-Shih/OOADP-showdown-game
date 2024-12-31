@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // Project modules
-import { prompt as dafaultPrompt, isValidIntegerInRange } from '../utils';
+import { prompt as defaultPrompt, isValidIntegerInRange } from '../utils';
 import { Card } from './card';
 import { NUM_PLAYERS } from './constants';
 import { Player } from './player';
@@ -8,10 +8,9 @@ import { Player } from './player';
 
 // --------------------------------------------------------------------------------------------------------------------
 class HumanPlayer extends Player {
-    private _prompt: (typeof dafaultPrompt) = dafaultPrompt;
-
-    // ----------------------------------------------------------------------------------------------------------------
-    public setPrompt(prompt: (typeof dafaultPrompt)): void {
+    private _prompt: (typeof defaultPrompt);
+    public constructor(prompt: (typeof defaultPrompt) = defaultPrompt) {
+        super();
         this._prompt = prompt;
     }
 
