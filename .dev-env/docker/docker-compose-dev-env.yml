@@ -16,6 +16,8 @@ services:
         WORKDIR: /home/${DEFAULT_USER:-dev}/workdir
     volumes:
       - ../../:/home/${DEFAULT_USER:-dev}/workdir/${COMPOSE_PROJECT_NAME:-project}
+    # command: ["bash"]  # Optional, 因為 dockerfile 中已經設定了 CMD ["bash"]
+    # tty 與 stdin_open 設定為 true, 以支持 docker exec -it <container_id> 交互式操作
     tty: true
     stdin_open: true
   
