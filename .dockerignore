@@ -2,8 +2,8 @@
 #   .dockerignore 是基於 build context 目錄，而不是 Dockerfile 所在的目錄
 #   所以 .dockerignore 必須放在 build context 目錄下，而不是 Dockerfile 所在的目錄
 
-# .dev-env-related files
-.dev-env/*
+# _dev-env-related files
+_dev-env/
 
 # doc-related files
 docs/
