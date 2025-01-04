@@ -14,8 +14,8 @@
     "lint:fix": "eslint . --fix",
     "start": "ts-node -r tsconfig-paths/register --files src",
     "start:container": "npm run build:image && ts-node scripts/docker/startDockerContainer.ts",
-    "test": "mocha -r ts-node/register -r tsconfig-paths/register --require source-map-support/register --recursive 'tests/**/*.spec.ts'",
-    "test:file": "mocha -r ts-node/register -r tsconfig-paths/register --require source-map-support/register --recursive --exit",
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register --recursive 'tests/**/*.spec.ts'",
+    "test:file": "mocha -r ts-node/register -r tsconfig-paths/register --recursive --exit",
     "test:coverage": "c8 --reporter=lcov --reporter=text --reporter=json-summary -- npm test"
   },
   "keywords": [
