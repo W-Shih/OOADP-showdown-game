@@ -4,22 +4,18 @@
   "description": "第一道館挑戰-showdown",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean:build && npm run lint && tsc",
+    "build": "npm run clean:build && npm run lint && tsc && tsc-alias",
     "build:image": "ts-node scripts/docker/buildDockerImage.ts",
-
     "clean": "npm run clean:build && npm run clean:coverage && npm run clean:node_modules",
     "clean:build": "shx rm -rf dist",
     "clean:coverage": "shx rm -rf coverage",
     "clean:node_modules": "shx rm -rf node_modules",
-
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-
-    "start": "ts-node --files src",
+    "start": "ts-node -r tsconfig-paths/register --files src",
     "start:container": "npm run build:image && ts-node scripts/docker/startDockerContainer.ts",
-
-    "test": "mocha -r ts-node/register --require source-map-support/register --recursive 'tests/**/*.spec.ts'",
-    "test:file": "mocha -r ts-node/register --require source-map-support/register --recursive --exit",
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register --require source-map-support/register --recursive 'tests/**/*.spec.ts'",
+    "test:file": "mocha -r ts-node/register -r tsconfig-paths/register --require source-map-support/register --recursive --exit",
     "test:coverage": "c8 --reporter=lcov --reporter=text --reporter=json-summary -- npm test"
   },
   "keywords": [
@@ -51,6 +47,8 @@
     "shx": "^0.3.4",
     "sinon": "^19.0.2",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.19.0"
   }
