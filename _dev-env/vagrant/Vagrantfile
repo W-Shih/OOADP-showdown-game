@@ -1,6 +1,12 @@
 # <Wayne Shih> 29-Dec-2024
 # 設定虛擬機名稱 via 變數 
 VM_NAME = "challenge1-showdown-game"
+HOST_PROJECT_ROOT = File.expand_path("../../..", __FILE__)  # `__FILE__` 表示當前文件的絕對路徑; `File.expand_path` 將返回絕對路徑
+VM_PROJECT_ROOT = "/home/vagrant/project"
+puts "VM Name: #{VM_NAME}"
+puts "Vagrantfile: #{__FILE__}"
+puts "Host Project Root: #{HOST_PROJECT_ROOT}"
+puts "VM Project Root: #{VM_PROJECT_ROOT}"
 
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
@@ -55,9 +61,33 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  # <Wayne Shih> 29-Dec-2024
-  # 同步本地項目根目錄到虛擬機的 /home/vagrant/project
-  config.vm.synced_folder "../..", "/home/vagrant/project", type: "virtualbox"
+  # 
+  # <Wayne Shih> 10-Jan-2025
+  # Disable default synced folder since the `Vagrantfile` is not in the project root
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  # 
+  # <Wayne Shih> 10-Jan-2025
+  # 同步本地項目根目錄 HOST_PROJECT_ROOT 到虛擬機的 VM_PROJECT_ROOT
+  # 
+  # Since the default type and type `virtualbox` are not working properly with the symlink, 
+  # while `npm install` will throw the following error:`
+  #   ```
+  #   npm error code EPROTO
+  #   npm error syscall symlink
+  #   npm error path ../acorn/bin/acorn
+  #   npm error dest /home/vagrant/project/node_modules/.bin/acorn
+  #   npm error errno -71
+  #   npm error EPROTO: protocol error, symlink '../acorn/bin/acorn' -> '/home/vagrant/project/node_modules/.bin/acorn'
+  #   npm error A complete log of this run can be found in: /home/vagrant/.npm/_logs/2025-01-10T21_25_49_893Z-debug-0.log
+  #   ```
+  # So, change the type to `smb` to fix the issue for windows host.
+  # Please choose the appropriate type according to your host OS.
+  # Please refer to https://developer.hashicorp.com/vagrant/docs/synced-folders/basic_usage#symbolic-links
+  # 
+  # The downside is that the `smb` type requires credentials to access the shared folder each time the VM is started.
+  # Please let me know if you have a better solution.
+  config.vm.synced_folder HOST_PROJECT_ROOT, VM_PROJECT_ROOT, type: "smb"
+  # config.vm.synced_folder HOST_PROJECT_ROOT, VM_PROJECT_ROOT, type: "virtualbox"
 
   # <Wayne Shih> 29-Dec-2024
   # 修改 vagrant ssh 的預設目錄
@@ -85,7 +115,10 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  # 
   # <Wayne Shih> 29-Dec-2024
   # 使用 provision.sh 進行環境設定
-  config.vm.provision "shell", path: "./provision.sh"
+  config.vm.provision "shell", path: "./provision.sh", env: {
+    "VM_PROJECT_ROOT" => VM_PROJECT_ROOT
+  }
 end

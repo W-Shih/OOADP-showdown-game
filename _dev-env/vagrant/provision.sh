@@ -1,10 +1,6 @@
 #!/bin/bash
 
 # ---------------------------------------------------------------------------------------------------------------------
-# 運行 configure_bashrc.sh
-../shared/configure_bashrc.sh
-
-# ---------------------------------------------------------------------------------------------------------------------
 # 檢查 Node.js 是否已安裝
 if ! command -v node &> /dev/null; then
   echo "Node.js is not installed. Installing Node.js and npm..."
@@ -35,6 +31,15 @@ else
   node -v
   npm -v
 fi
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 當前 user 是 root, 要以 vagrant user 運行 configure_bashrc.sh
+# Note: 
+#   這個路徑是虛擬機中的路徑, 並以 /home/vagrant 為虛擬機中根目錄 ${HOME}.
+#   並非以本機端的 provisioning.sh 或是 Vagrantfile 所在的目錄為根目錄.
+# su - vagrant -c "whoami"  # verify using vagrant user to run the command
+# echo "VM_PROJECT_ROOT is set to: ${VM_PROJECT_ROOT}"  # verify VM_PROJECT_ROOT has been set
+su - vagrant -c "${VM_PROJECT_ROOT}/_dev-env/shared/configure-bashrc.sh"  # 虛擬機中的絕對路徑
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Provisioning completed
