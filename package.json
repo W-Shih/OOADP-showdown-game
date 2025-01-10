@@ -1,0 +1,55 @@
+{
+  "name": "challenge1-showdown-game",
+  "version": "1.0.0",
+  "description": "第一道館挑戰-showdown",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run clean:build && npm run lint && tsc && tsc-alias",
+    "build:image": "ts-node scripts/docker/buildDockerImage.ts",
+    "clean": "npm run clean:build && npm run clean:coverage && npm run clean:node_modules",
+    "clean:build": "shx rm -rf dist",
+    "clean:coverage": "shx rm -rf coverage",
+    "clean:node_modules": "shx rm -rf node_modules",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "start": "ts-node -r tsconfig-paths/register --files src",
+    "start:container": "npm run build:image && ts-node scripts/docker/startDockerContainer.ts",
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register --recursive 'tests/**/*.spec.ts'",
+    "test:file": "mocha -r ts-node/register -r tsconfig-paths/register --recursive --exit",
+    "test:coverage": "c8 --reporter=lcov --reporter=text --reporter=json-summary -- npm test"
+  },
+  "keywords": [
+    "道館挑戰",
+    "Showdown",
+    "Game"
+  ],
+  "directories": {
+    "test": "tests"
+  },
+  "author": "wshih",
+  "license": "MIT",
+  "dependencies": {
+    "tslib": "2.7.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/chai": "^4.3.16",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.14.8",
+    "@types/sinon": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "c8": "^10.1.2",
+    "chai": "^4.5.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "mocha": "^10.4.0",
+    "shx": "^0.3.4",
+    "sinon": "^19.0.2",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.19.0"
+  }
+}

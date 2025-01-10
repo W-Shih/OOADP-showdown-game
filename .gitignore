@@ -1,3 +1,13 @@
+# .example files
+.eslint*.example
+*.example.*
+
+# .vscode configs
+.vscode
+
+# vagrant
+.vagrant
+
 # Logs
 logs
 *.log
