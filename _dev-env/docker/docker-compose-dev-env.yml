@@ -13,7 +13,7 @@ services:
       dockerfile: docker/dockerfile-dev-env
       args:
         DEFAULT_USER: ${DEFAULT_USER:-dev}
-        WORKDIR: /home/${DEFAULT_USER:-dev}/workdir
+        WORKDIR: /home/${DEFAULT_USER:-dev}/workdir/${COMPOSE_PROJECT_NAME:-project}
     volumes:
       - ../../:/home/${DEFAULT_USER:-dev}/workdir/${COMPOSE_PROJECT_NAME:-project}
     # command: ["bash"]  # Optional, 因為 dockerfile 中已經設定了 CMD ["bash"]
