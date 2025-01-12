@@ -65,7 +65,7 @@ describe('Game', () => {
                 new MockPlayer(),
             ];
             // P1 exchanges hands with P2 at round 1
-            const p1 = players[0];
+            const p1 = players[0] as Player;
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
                 this._canExchangeHands = false;
                 return true;
@@ -100,7 +100,7 @@ describe('Game', () => {
                 new MockPlayer(),
             ];
             // P1 exchanges hands with P4 at round 1
-            const p1 = players[0];
+            const p1 = players[0] as Player;
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
                 this._canExchangeHands = false;
                 return true;
@@ -135,7 +135,7 @@ describe('Game', () => {
                 new MockPlayer(),
             ];
             // P4 exchanges hands with P1 at round 11
-            const p4 = players[3];
+            const p4 = players[3] as Player;
             let callCount = 0;
             sandbox.stub(p4, 'askExchangeHands').callsFake(function (this: Player) {
                 callCount++;
@@ -176,7 +176,7 @@ describe('Game', () => {
                 new MockPlayer(),
             ];
             // P1 exchanges hands with P4 at round 1
-            const p1 = players[0];
+            const p1 = players[0] as Player;
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
                 this._canExchangeHands = false;
                 return true;
@@ -184,7 +184,7 @@ describe('Game', () => {
             sandbox.stub(p1, 'askExchangePlayerIdx').returns(3);  // P4
 
             // P4 exchanges hands with P1 at round 1
-            const p4 = players[3];
+            const p4 = players[3] as Player;
             sandbox.stub(p4, 'askExchangeHands').callsFake(function (this: Player) {
                 this._canExchangeHands = false;
                 return true;
@@ -219,7 +219,7 @@ describe('Game', () => {
                 new MockPlayer(),
             ];
             // P3 exchanges hands with P1 at round 11
-            const p3 = players[2];
+            const p3 = players[2] as Player;
             let callCount = 0;
             sandbox.stub(p3, 'askExchangeHands').callsFake(function (this: Player) {
                 callCount++;
@@ -260,7 +260,7 @@ describe('Game', () => {
                 new MockPlayer(),
             ];
             // P3 exchanges hands with P1 at round 11
-            const p3 = players[2];
+            const p3 = players[2] as Player;
             let callCountForP3 = 0;
             sandbox.stub(p3, 'askExchangeHands').callsFake(function (this: Player) {
                 callCountForP3++;
@@ -273,7 +273,7 @@ describe('Game', () => {
             sandbox.stub(p3, 'askExchangePlayerIdx').returns(0);  // P1
 
             // P1 exchanges hands with P3 at round 12
-            const p1 = players[0];
+            const p1 = players[0] as Player;
             let callCountForP1 = 0;
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
                 callCountForP1++;
@@ -315,7 +315,7 @@ describe('Game', () => {
                 new MockPlayer(),
             ];
             // P1 exchanges hands with P4 at round 1
-            const p1 = players[0];
+            const p1 = players[0] as Player;
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
                 this._canExchangeHands = false;  // P1 decides to exchange hands at round 1
                 return true;
@@ -323,7 +323,7 @@ describe('Game', () => {
             sandbox.stub(p1, 'askExchangePlayerIdx').returns(3);  // P4
 
             // P2 exchanges hands with P4 at round 4
-            const p2 = players[1];
+            const p2 = players[1] as Player;
             let callCountForP2 = 0;
             sandbox.stub(p2, 'askExchangeHands').callsFake(function (this: Player) {
                 callCountForP2++;
@@ -336,7 +336,7 @@ describe('Game', () => {
             sandbox.stub(p2, 'askExchangePlayerIdx').returns(3);  // P4
 
             // P3 exchanges hands with P4 at round 7
-            const p3 = players[2];
+            const p3 = players[2] as Player;
             let callCountForP3 = 0;
             sandbox.stub(p3, 'askExchangeHands').callsFake(function (this: Player) {
                 callCountForP3++;
@@ -378,7 +378,7 @@ describe('Game', () => {
                 new MockPlayer(),
             ];
             // P1 exchanges hands with P4 at round 1
-            const p1 = players[0];
+            const p1 = players[0] as Player;
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
                 this._canExchangeHands = false;  // P1 decides to exchange hands at round 1
                 return true;
@@ -386,7 +386,7 @@ describe('Game', () => {
             sandbox.stub(p1, 'askExchangePlayerIdx').returns(3);  // P4
 
             // P2 exchanges hands with P1 at round 2
-            const p2 = players[1];
+            const p2 = players[1] as Player;
             let callCountForP2 = 0;
             sandbox.stub(p2, 'askExchangeHands').callsFake(function (this: Player) {
                 callCountForP2++;
@@ -399,7 +399,7 @@ describe('Game', () => {
             sandbox.stub(p2, 'askExchangePlayerIdx').returns(0);  // P1
 
             // P3 exchanges hands with P2 at round 3
-            const p3 = players[2];
+            const p3 = players[2] as Player;
             let callCountForP3 = 0;
             sandbox.stub(p3, 'askExchangeHands').callsFake(function (this: Player) {
                 callCountForP3++;
@@ -438,7 +438,7 @@ describe('Game', () => {
                 new MockPlayer(),
                 new MockPlayer(),
             ];
-            const p1 = players[0];
+            const p1 = players[0] as Player;
             sandbox.stub(p1, 'askExchangeHands').callsFake(function (this: Player) {
                 this._canExchangeHands = false;
                 return true;

@@ -6,6 +6,17 @@ import { NUM_CARDS_PER_PLAYER } from './constants';
 
 // --------------------------------------------------------------------------------------------------------------------
 abstract class Player {
+    // ----------------------------------------------------------------------------------------------------------------
+    // Abstract
+    public abstract askExchangeHands(): boolean | Promise<boolean>;
+    public abstract askExchangePlayerIdx(selfIdx: number): number | Promise<number>;
+    public abstract show(): (Card | null) | Promise<Card | null>;
+
+    // ----------------------------------------------------------------------------------------------------------------
+    // Static
+
+    // ----------------------------------------------------------------------------------------------------------------
+    // Instance
     protected _canExchangeHands: boolean;
     protected _cards: Card[];
     private _name: string | null;
@@ -17,17 +28,6 @@ abstract class Player {
         this._cards = [];
         this._canExchangeHands = true;
     }
-
-
-    // ----------------------------------------------------------------------------------------------------------------
-    public abstract askExchangeHands(): boolean | Promise<boolean>;
-
-    // ----------------------------------------------------------------------------------------------------------------
-    public abstract askExchangePlayerIdx(slefIdx: number): number | Promise<number>;
-
-    // ----------------------------------------------------------------------------------------------------------------
-    public abstract show(): (Card | null) | Promise<Card | null>;
-
 
     // ----------------------------------------------------------------------------------------------------------------
     public setName(name: string): void {

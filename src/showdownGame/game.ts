@@ -53,7 +53,7 @@ class Game {
         for (let i = 0; i < NUM_CARDS_PER_PLAYER; i++) {
             for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
                 const card = this._deck.drawCard();
-                this._players[playerIdx].addCard(card);
+                this._getPlayer(playerIdx).addCard(card);
             }
         }
 
@@ -70,7 +70,7 @@ class Game {
             const maxCardIdx = this._getMaxCardIdx(cards);
             this._updateStatus(maxCardIdx);
 
-            console.log(`Round ${roundIdx + 1} winner: P${maxCardIdx + 1} - ${this._players[maxCardIdx].getName()}`);
+            console.log(`Round ${roundIdx + 1} winner: P${maxCardIdx + 1} - ${this._getPlayer(maxCardIdx).getName()}`);
         }
     }
 
@@ -79,13 +79,13 @@ class Game {
         let maxPoints = -1;
         let winnerIdx = -1;
         for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
-            const points = this._players[playerIdx].getPoints();
+            const points = this._getPlayer(playerIdx).getPoints();
             if (points > maxPoints) {
                 maxPoints = points;
                 winnerIdx = playerIdx;
             }
         }
-        const message = `The game winner is P${winnerIdx + 1} - ${this._players[winnerIdx].getName()} `
+        const message = `The game winner is P${winnerIdx + 1} - ${this._getPlayer(winnerIdx).getName()} `
             + `with ${maxPoints} points.`;
         console.log(message);
     }
@@ -124,7 +124,7 @@ class Game {
     // ----------------------------------------------------------------------------------------------------------------
     private _updateStatus(maxCardIdx: number): void {
         // Update round winner's point
-        const roundWinner = this._players[maxCardIdx];
+        const roundWinner = this._getPlayer(maxCardIdx);
         roundWinner.gainOnePoint();
 
         // Update exchange info
@@ -151,12 +151,12 @@ class Game {
                 continue;
             }
             if (exchangeInfo.getCounter() === NUM_ROUNDS_FOR_EXCHANGE) {
-                const curtPlayer = this._players[playerIdx];
+                const curtPlayer = this._getPlayer(playerIdx);
                 const toPlayerIdx = exchangeInfo.getToPlayerIdx();
                 const message = `+++++ ${NUM_ROUNDS_FOR_EXCHANGE} rounds passed, `
                     + `P${playerIdx + 1} exchanges hands back with P${toPlayerIdx + 1}. +++++`;
                 console.log(message);
-                curtPlayer.exchangeHands(this._players[toPlayerIdx]);
+                curtPlayer.exchangeHands(this._getPlayer(toPlayerIdx));
 
             }
         }
@@ -174,7 +174,7 @@ class Game {
 
     // ----------------------------------------------------------------------------------------------------------------
     private async _oneTurn(playerIdx: number): Promise<Card | null> {
-        const player = this._players[playerIdx];
+        const player = this._getPlayer(playerIdx);
         // [假設]: 允許在同一回合中多人交換手牌
         if (player.canExchangeHands()) {
             await this._handleExchange(playerIdx);
@@ -185,7 +185,7 @@ class Game {
 
     // ----------------------------------------------------------------------------------------------------------------
     private async _handleExchange(playerIdx: number): Promise<void> {
-        const player = this._players[playerIdx];
+        const player = this._getPlayer(playerIdx);
         const exchange = await player.askExchangeHands();
         if (!exchange) {
             return;
@@ -197,18 +197,18 @@ class Game {
 
         const exchangeInfo = new ExchangeInfo(playerIdxToExchange);
         this._playerExchangeInfos[playerIdx] = exchangeInfo;
-        player.exchangeHands(this._players[playerIdxToExchange]);
+        player.exchangeHands(this._getPlayer(playerIdxToExchange));
     }
 
     // ----------------------------------------------------------------------------------------------------------------
     private async _initPlayers(): Promise<void> {
         for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
             const name = await this._prompt(`Please input the name for P${playerIdx + 1}: `);
-            this._players[playerIdx].setName(name);
+            this._getPlayer(playerIdx).setName(name);
         }
 
-        for (let playrIdex = 0; playrIdex < NUM_PLAYERS; playrIdex++) {
-            console.log(`P${playrIdex + 1}: ${this._players[playrIdex].getName()}`);
+        for (let playerIdx = 0; playerIdx < NUM_PLAYERS; playerIdx++) {
+            console.log(`P${playerIdx + 1}: ${this._getPlayer(playerIdx).getName()}`);
         }
     }
 
@@ -218,6 +218,14 @@ class Game {
             throw new Error(`The number of players must be ${NUM_PLAYERS}`);
         }
         this._players = players;
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+    private _getPlayer(playerIdx: number): Player {
+        if (playerIdx < 0 || playerIdx >= NUM_PLAYERS) {
+            throw new Error(`Player index must be between [0, ${NUM_PLAYERS} - 1]`);
+        }
+        return this._players[playerIdx]!;
     }
 }
 

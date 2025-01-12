@@ -44,7 +44,7 @@ class AiPlayer extends Player {
             return null;
         }
         const idx = this._randomInt(0, numCards);
-        return this._cards.splice(idx, 1)[0];
+        return this._cards.splice(idx, 1)[0]!;
     }
 }
 

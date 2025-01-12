@@ -121,7 +121,7 @@ describe('Deck', () => {
         it('should throw an error if duplicate cards', () => {
             // Given
             const cards = createCards();
-            cards[1] = cards[0];
+            cards[1] = cards[0]!;
 
             // When & Then
             try {

@@ -70,7 +70,7 @@ class HumanPlayer extends Player {
             }
 
             const idx = parseInt(ans, 10);
-            const card = this._cards.splice(idx, 1)[0];
+            const card = this._cards.splice(idx, 1)[0]!;
             return card;
         }
     }

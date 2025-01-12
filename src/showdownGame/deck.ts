@@ -23,8 +23,8 @@ class Deck {
         console.log('Shuffling deck...');
         for (let i = this._cards.length - 1; i > 0; i--) {
             const j = this._randomInt(0, i + 1);  // j's range is [0, i + 1)
-            const temp = this._cards[i];
-            this._cards[i] = this._cards[j];
+            const temp = this._getCard(i);
+            this._cards[i] = this._getCard(j);
             this._cards[j] = temp;
         }
         console.log('Deck shuffled.');
@@ -50,6 +50,14 @@ class Deck {
             throw new Error('Duplicate cards are not allowed');
         }
         this._cards = cards;
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+    private _getCard(idx: number): Card {
+        if (idx < 0 || idx >= this._cards.length) {
+            throw new Error('Invalid card index');
+        }
+        return this._cards[idx]!;
     }
 }
 
