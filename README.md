@@ -1,36 +1,76 @@
-# OOADP develop showdown card game
+# Showdown Card Game with OOADP: Iterative Development and Continuous Refactoring
 
-This is a project that follows
+This project demonstrates the iterative development and continuous refactoring process of **Object-Oriented Analysis, Design, Programming (OOADP), unit tests, and refactoring** through a simple showdown card game.
 
-> **OOA -> OOD -> OOP -> Unit tests -> Refactoring**
+The project emphasizes
 
-process and iteratively develops a showdown card game to demonstrate the process of continuous development and refactoring.
+- **Iterative Development and Continuous Refactoring**:
+  - Following a structured cycle to continuously refine design and implementation:
 
-## Contents [[↑](#ooadp-develop-showdown-card-game)]
+    > **OOA -> OOD -> OOP -> Unit tests -> Refactoring**
 
-- [OOADP develop showdown card game](#ooadp-develop-showdown-card-game)
-  - [Contents \[↑\]](#contents-)
-  - [Quick Start \[↑\]](#quick-start-)
-    - [Run the game \[↑\]](#run-the-game-)
-      - [Run the game locally \[↑\]](#run-the-game-locally-)
-      - [Run the game via Docker \[↑\]](#run-the-game-via-docker-)
-      - [Run the game via Node.js and Docker \[↑\]](#run-the-game-via-nodejs-and-docker-)
-  - [Development environment \[↑\]](#development-environment-)
-    - [Local development environment \[↑\]](#local-development-environment-)
-    - [Docker development environment \[↑\]](#docker-development-environment-)
-    - [Vagrant development environment \[↑\]](#vagrant-development-environment-)
-  - [Run unit tests \[↑\]](#run-unit-tests-)
-  - [Run lint \[↑\]](#run-lint-)
-  - [Clean up \[↑\]](#clean-up-)
-  - [More commands \[↑\]](#more-commands-)
+- **Practical Development Environment**:
+  - Leveraging modern tools like **Docker**, **Vagrant**, and **Node.js** to simulate a realistic and efficient development environment.
 
-## Quick Start [[↑](#ooadp-develop-showdown-card-game)]
+## Contents [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
 
-### Run the game [[↑](#ooadp-develop-showdown-card-game)]
+- [Contents \[↑\]](#contents-)
+- [Project Objective \[↑\]](#project-objective-)
+- [Prerequisites \[↑\]](#prerequisites-)
+- [Design Documentation \[↑\]](#design-documentation-)
+- [Quick Start \[↑\]](#quick-start-)
+- [Development environment \[↑\]](#development-environment-)
+- [Development Commands \[↑\]](#development-commands-)
+
+## Project Objective [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+
+- To demonstrate the **OOA -> OOD -> OOP -> Unit tests -> Refactoring** process.
+- To show the basics of software design and development cycles.
+- Offers hands-on practice with modern tools like Docker, Vagrant, and Node.js.
+
+---
+
+## Prerequisites [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+
+Before starting, ensure you have at least one of the following installed:
+
+- Local development environment:
+  - Node.js (>=20.x)
+- Docker development environment:
+  - Docker (>=24.x)
+- Vagrant development environment:
+  - VirtualBox (>=7.1)
+  - Vagrant (>=2.4)
+
+---
+
+## Design Documentation [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+
+The design documents for this project can be found in the following files located in the `docs/designs` directory:
+
+### OOA - Domain Modeling
+
+- [OOA Class Diagram](docs/designs/1-OOA-ClassDiagram-Showdown-v0.0.0.png)
+
+### OOD - Design blueprint
+
+- [OOD Sequence Diagram](docs/designs/2.1-OOD-SeqDiagram-Showdown-v0.1.0.png)
+- [OOD Class Diagram](docs/designs/2.2-OOD-ClassDiagram-Showdown-v0.1.0.png)
+
+### OOP - Programming
+
+- [OOP Class Diagram](docs/designs/3.1-OOP-ClassDiagram-Showdown-v0.1.0.png)
+- [OOP Sequence Diagram](docs/designs/3.2-OOP-SeqDiagram-Showdown-v0.1.0.png)
+
+These designs outline the conceptual and logical structures of the game, following the OOADP process.
+
+---
+
+## Quick Start [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
 
 You can run the game locally, via Docker, or via Node.js and Docker.
 
-#### Run the game locally [[↑](#ooadp-develop-showdown-card-game)]
+### Run the game locally
 
 - If you have local node.js installed, you can run the game by running the following commands:
 
@@ -39,7 +79,7 @@ You can run the game locally, via Docker, or via Node.js and Docker.
   npm run start
   ```
 
-#### Run the game via Docker [[↑](#ooadp-develop-showdown-card-game)]
+### Run the game via Docker
 
 - If you have Docker installed, you can run the game by running the following commands:
 
@@ -48,7 +88,7 @@ You can run the game locally, via Docker, or via Node.js and Docker.
   docker container run --name showdown-card-game --rm -it showdown-card-game:1.0.0
   ```
 
-#### Run the game via Node.js and Docker [[↑](#ooadp-develop-showdown-card-game)]
+### Run the game via Node.js and Docker
 
 - If you have local node.js and Docker installed, you can run the game by running the following commands:
 
@@ -57,17 +97,20 @@ You can run the game locally, via Docker, or via Node.js and Docker.
   npm run start:container
   ```
 
-## Development environment [[↑](#ooadp-develop-showdown-card-game)]
+---
 
-You can use one of the following development environments to develop the game:
+## Development environment [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
 
-### Local development environment [[↑](#ooadp-develop-showdown-card-game)]
+This project supports three development setups:
 
-- You need to have node.js installed.
+### Local development environment
 
-### Docker development environment [[↑](#ooadp-develop-showdown-card-game)]
+- Requires Node.js (>=20.x).
 
-- You need to have Docker installed, then you can run the following commands to start the container for development:
+### Docker development environment
+
+- Requires Docker (>=24.x).
+- To set up the containerized development environment:
 
   ```bash
   docker-compose -f _dev-env/docker/docker-compose-dev-env.yml up -d
@@ -75,9 +118,18 @@ You can use one of the following development environments to develop the game:
   npm install
   ```
 
-### Vagrant development environment [[↑](#ooadp-develop-showdown-card-game)]
+- Clean up and remove the Docker development environment by running the following commands:
 
-- You need to have virtualbox and vagrant installed, then you can run the following commands to start the VM for development:
+  ```bash
+  docker-compose -f _dev-env/docker/docker-compose-dev-env.yml down
+  ```
+
+  Then, remove the corresponding container and image.
+
+### Vagrant development environment
+
+- Requires VirtualBox (>=7.1) and Vagrant (>=2.4).
+- To start the virtual machine for development:
 
   ```bash
   cd _dev-env/vagrant
@@ -86,30 +138,41 @@ You can use one of the following development environments to develop the game:
   npm install
   ```
 
-## Run unit tests [[↑](#ooadp-develop-showdown-card-game)]
+- Clean up and remove the Vagrant development environment by running the following commands:
 
-- You can run the unit tests by running the following commands:
+  ```bash
+  cd _dev-env/vagrant
+  vagrant destroy
+  ```
+
+---
+
+## Development Commands [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+
+### Run unit tests
+
+- Run the unit tests with coverage by running the following commands:
 
   ```bash
   npm run test:coverage
   ```
 
-## Run lint [[↑](#ooadp-develop-showdown-card-game)]
+### Run lint
 
-- You can run the lint by running the following commands:
+- Run the lint by running the following commands:
 
   ```bash
   npm run lint
   ```
 
-## Clean up [[↑](#ooadp-develop-showdown-card-game)]
+### Clean up
 
-- You can clean up the environment by running the following commands:
+- Clean up the environment (`node_modules`, `dist`, `coverage`) by running the following commands:
 
   ```bash
   npm run clean
   ```
 
-## More commands [[↑](#ooadp-develop-showdown-card-game)]
+### More commands
 
-- You can see more commands in the `package.json` file.
+- See more commands in the `package.json` file.
