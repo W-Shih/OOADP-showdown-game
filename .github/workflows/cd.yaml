@@ -1,51 +1,23 @@
-name: Node.js CI/CD Workflow
+name: Node.js CD (Delivery) Workflow
 
 on:
-  push:
-  pull_request:
+  # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_run
+  # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#limiting-your-workflow-to-run-based-on-branches
+  # This workflow with the following trigger will only run when 
+  #   - the workflow named `Node.js CI Workflow` completed on the `main` branch.
+  workflow_run:
+    workflows:
+      - Node.js CI Workflow
     types:
-      - opened
-      - reopened
+      - completed
+    branches:
+      - main
 
 jobs:
-  ci:
-    name: Continuous Integration (CI)
-    # https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        node-version: [18, 20]
-    steps:
-      # # https://github.com/marketplace/actions/checkout
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      # https://github.com/marketplace/actions/setup-node-js-environment
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Install Dependencies (npm-install)
-        run: npm ci
-
-      - name: Run Linter (npm-lint)
-        run: npm run lint
-
-      - name: Run Tests (unit-test)
-        run: npm run test:coverage
-
-      - name: Build the App (build-app)
-        run: npm run build
-
-  cd:
+  on-success:
     name: Continuous Delivery (CD)
     # https://stackoverflow.com/questions/67531606/how-to-deal-with-long-conditional-expression-in-github-actions-workflow
-    if: |-
-      ${{ 
-        (github.event_name == 'push' && github.ref == 'refs/heads/main') 
-      }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-20.04
     needs: ci
     steps:
@@ -90,3 +62,9 @@ jobs:
           cache-to: |
             type=inline
             type=local,dest=/tmp/.buildx-cache
+  
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo "The dependent workflow failed."
