@@ -19,7 +19,6 @@ jobs:
     # https://stackoverflow.com/questions/67531606/how-to-deal-with-long-conditional-expression-in-github-actions-workflow
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-20.04
-    needs: ci
     steps:
       - name: Check out code
         uses: actions/checkout@v4
