@@ -6,13 +6,15 @@ on:
     types:
       - opened
       - reopened
-      - closed
 
 jobs:
   ci:
     name: Continuous Integration (CI)
     # https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [18, 20]
     steps:
       # # https://github.com/marketplace/actions/checkout
       - name: Check out code
@@ -22,10 +24,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: Install Dependencies (npm-install)
-        run: npm install
+        run: npm ci
 
       - name: Run Linter (npm-lint)
         run: npm run lint
@@ -42,20 +45,12 @@ jobs:
     if: |-
       ${{ 
         (github.event_name == 'push' && github.ref == 'refs/heads/main') 
-        || (github.event_name == 'pull_request' 
-            && github.event.pull_request.merged == true 
-            && github.event.pull_request.base.ref == 'main') 
       }}
     runs-on: ubuntu-20.04
     needs: ci
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-
-      - name: Set IMAGE_NAME and IMAGE_VERSION
-        run: |
-          echo "IMAGE_NAME=$(node -p 'require("./package.json").name')" >> ${GITHUB_ENV}
-          echo "IMAGE_VERSION=$(node -p 'require("./package.json").version')" >> ${GITHUB_ENV}
 
       # https://github.com/marketplace/actions/docker-setup-buildx
       # Add support for more platforms with QEMU (optional)
@@ -73,6 +68,11 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Set IMAGE_NAME and IMAGE_VERSION
+        run: |
+          echo "IMAGE_NAME=$(node -p 'require("./package.json").name')" >> ${GITHUB_ENV}
+          echo "IMAGE_VERSION=$(node -p 'require("./package.json").version')" >> ${GITHUB_ENV}
+
       # https://github.com/marketplace/actions/build-and-push-docker-images
       - name: Build and Push Multi-Arch Docker Image
         uses: docker/build-push-action@v6
@@ -84,3 +84,9 @@ jobs:
           tags: |
             ${{ env.DOCKERHUB_IMAGE }}:latest
             ${{ env.DOCKERHUB_IMAGE }}:${{ env.IMAGE_VERSION }}
+          cache-from: |
+            type=local,src=/tmp/.buildx-cache
+            type=registry,ref=${{ env.DOCKERHUB_IMAGE }}:latest
+          cache-to: |
+            type=inline
+            type=local,dest=/tmp/.buildx-cache
