@@ -22,9 +22,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install Dependencies (npm-install)
-        run: npm install
+        run: npm ci
 
       - name: Run Linter (npm-lint)
         run: npm run lint
@@ -80,3 +81,9 @@ jobs:
           tags: |
             ${{ env.DOCKERHUB_IMAGE }}:latest
             ${{ env.DOCKERHUB_IMAGE }}:${{ env.IMAGE_VERSION }}
+          cache-from: |
+            type=local,src=/tmp/.buildx-cache
+            type=registry,ref=${{ env.DOCKERHUB_IMAGE }}:latest
+          cache-to: |
+            type=inline
+            type=local,dest=/tmp/.buildx-cache
