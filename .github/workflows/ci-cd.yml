@@ -12,6 +12,9 @@ jobs:
     name: Continuous Integration (CI)
     # https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [18, 20]
     steps:
       # # https://github.com/marketplace/actions/checkout
       - name: Check out code
@@ -21,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
       - name: Install Dependencies (npm-install)
