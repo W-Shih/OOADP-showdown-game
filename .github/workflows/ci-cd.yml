@@ -6,7 +6,6 @@ on:
     types:
       - opened
       - reopened
-      - closed
 
 jobs:
   ci:
@@ -42,9 +41,6 @@ jobs:
     if: |-
       ${{ 
         (github.event_name == 'push' && github.ref == 'refs/heads/main') 
-        || (github.event_name == 'pull_request' 
-            && github.event.pull_request.merged == true 
-            && github.event.pull_request.base.ref == 'main') 
       }}
     runs-on: ubuntu-20.04
     needs: ci
