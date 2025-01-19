@@ -63,6 +63,7 @@ jobs:
             type=local,dest=/tmp/.buildx-cache
   
   on-failure:
+    name: Notify on Dependent Workflow Failure
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
