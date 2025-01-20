@@ -1,7 +1,7 @@
 # =====================================================================================================================
 # multi-stage build: 
 # Stage 1: Install dependencies, build app, and prune devDependencies
-FROM node:20.18-alpine3.20 as builder
+FROM node:20.18-alpine3.20 AS builder
 
 WORKDIR /app
 

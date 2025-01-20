@@ -51,9 +51,9 @@ USER ${DEFAULT_USER}
 #   - https://github.com/redis/docker-library-redis/blob/master/7.4/alpine/Dockerfile
 #   - https://github.com/docker-library/memcached/blob/master/1/alpine/Dockerfile
 # Note:
-#   由於 configure-bashrc.sh 與 dockerfile 不在同一目錄下, 所以 docker image build 時必須指定 build context 
-#   為 .dev-env 目錄, e.g. 
-#     $ docker build -t dev-env-image -f docker/dockerfile-dev-env .dev-env
+#   由於 configure-bashrc.sh 與 Dockerfile 不在同一目錄下, 所以 docker image build 時必須指定 build context 
+#   為 _dev-env 目錄, e.g. 
+#     $ docker build -t dev-env-image -f docker/Dockerfile.dev-env _dev-env
 ENV BIN_DIR=/usr/local/bin
 ENV PATH=$BIN_DIR:$PATH
 COPY ./shared/configure-bashrc.sh ${BIN_DIR}

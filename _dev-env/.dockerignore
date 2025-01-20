@@ -3,8 +3,8 @@
 #   所以 .dockerignore 必須放在 build context 目錄下，而不是 Dockerfile 所在的目錄
 
 # Docker-related files
-docker/dockerfile-dev-env
-docker/docker-compose-dev-env.yml
+docker/Dockerfile.dev-env
+docker/Docker-compose.dev-env.yml
 .dockerignore
 
 # Vagrant-related files
