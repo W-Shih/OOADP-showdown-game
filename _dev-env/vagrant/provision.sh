@@ -8,22 +8,22 @@ if ! command -v node &> /dev/null; then
   # 更新系統並安裝基本工具
   export DEBIAN_FRONTEND=noninteractive
   apt-get update \
-      && apt-get install -y \
-          curl \
-          dos2unix \
-          wget \
-          tree \
-          sudo
+    && apt-get install -y \
+      curl \
+      dos2unix \
+      sudo \
+      tree \
+      wget \
 
   # 安裝 Node.js 和 npm
   curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-      && apt-get install -y nodejs \
-      && npm install -g npm@latest \
-      && npm cache clean --force
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest \
+    && npm cache clean --force
 
   # 清理快取
   apt-get clean \
-      && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
   echo "Node.js and npm installation completed."
 else

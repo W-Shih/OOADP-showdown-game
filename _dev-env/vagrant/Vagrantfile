@@ -22,10 +22,30 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  # <Wayne Shih> 29-Dec-2024
-  # bax at https://portal.cloud.hashicorp.com/vagrant/discover/bento/ubuntu-22.04
-  config.vm.box = "bento/ubuntu-22.04"
-  config.vm.box_version = "202407.23.0"
+  # 
+  # <Wayne Shih> 15-Jan-2025
+  # Ask Vagrant to use the correct box for the host architecture
+  ARCH = if Gem.win_platform?
+    ENV["PROCESSOR_ARCHITECTURE"].downcase
+  else
+    `uname -m`.strip
+  end
+  ARCH = "amd64" if ARCH == "x86_64"
+  ARCH = "arm64" if ARCH == "aarch64"
+  puts "Current host architecture: #{ARCH}"
+
+  case ARCH
+  when "amd64"
+    # bax at https://portal.cloud.hashicorp.com/vagrant/discover/bento/ubuntu-22.04
+    config.vm.box = "bento/ubuntu-22.04"
+    config.vm.box_version = "202407.23.0"
+  when "arm64"
+    # bax at https://portal.cloud.hashicorp.com/vagrant/discover/bento/ubuntu-22.04-arm64
+    config.vm.box = "bento/ubuntu-22.04-arm64"
+    config.vm.box_version = "202401.31.0"
+  else
+    raise "Unsupported host architecture: #{ARCH}"
+  end
 
   # <Wayne Shih> 29-Dec-2024
   # 使用自定義虛擬機名稱
