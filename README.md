@@ -84,8 +84,8 @@ You can run the game locally, via Docker, or via Node.js and Docker.
 - If you have Docker installed, you can run the game by running the following commands:
 
   ```bash
-  docker build -t showdown-card-game:1.0.0 .
-  docker container run --name showdown-card-game --rm -it showdown-card-game:1.0.0
+  docker build -t showdown-card-game:latest .
+  docker container run --name showdown-card-game --rm -it showdown-card-game:latest
   ```
 
 ### Run the game via Node.js and Docker
@@ -113,7 +113,7 @@ This project supports three development setups:
 - To set up the containerized development environment:
 
   ```bash
-  docker-compose -f _dev-env/docker/docker-compose-dev-env.yml up -d
+  docker-compose -f _dev-env/docker/docker-compose.dev-env.yml up -d
   docker container exec -it <container_id or container_name> bash
   npm install
   ```
@@ -121,7 +121,7 @@ This project supports three development setups:
 - Clean up and remove the Docker development environment by running the following commands:
 
   ```bash
-  docker-compose -f _dev-env/docker/docker-compose-dev-env.yml down
+  docker-compose -f _dev-env/docker/docker-compose.dev-env.yml down
   ```
 
   Then, remove the corresponding container and image.
