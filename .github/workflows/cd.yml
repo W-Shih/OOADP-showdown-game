@@ -21,6 +21,8 @@ jobs:
     # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-20.04
+    # https://docs.docker.com/build/ci/github-actions/multi-platform/
+    # https://github.com/marketplace/actions/build-and-push-docker-images#path-context
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -46,14 +48,32 @@ jobs:
           echo "IMAGE_NAME=$(node -p 'require("./package.json").name')" >> ${GITHUB_ENV}
           echo "IMAGE_VERSION=$(node -p 'require("./package.json").version')" >> ${GITHUB_ENV}
 
+      # https://docs.docker.com/reference/cli/docker/buildx/build/
+      # This is equivalent to the docker action below.
+      # - name: Build and Push Multi-Arch Docker Image By Docker CLI
+      #   env:
+      #     DOCKERHUB_IMAGE: ${{ vars.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
+      #   run: |
+      #     docker buildx build \
+      #       --platform linux/amd64,linux/arm64 \
+      #       --tag ${{ env.DOCKERHUB_IMAGE }}:latest \
+      #       --tag ${{ env.DOCKERHUB_IMAGE }}:${{ env.IMAGE_VERSION }} \
+      #       --cache-from=type=registry,ref=${{ env.DOCKERHUB_IMAGE }}:build-cache \
+      #       --cache-from=type=registry,ref=${{ env.DOCKERHUB_IMAGE }}:latest \
+      #       --cache-to=type=registry,ref=${{ env.DOCKERHUB_IMAGE }}:build-cache,mode=max \
+      #       --cache-to=type=inline \
+      #       --push \
+      #       .
+
       # https://github.com/marketplace/actions/build-and-push-docker-images
-      - name: Build and Push Multi-Arch Docker Image
+      - name: Build and Push Multi-Arch Docker Image By docker action
         uses: docker/build-push-action@v6
         env:
           DOCKERHUB_IMAGE: ${{ vars.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
         with:
+          context: .
           push: true
-          platforms: linux/amd64, linux/arm64
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ env.DOCKERHUB_IMAGE }}:latest
             ${{ env.DOCKERHUB_IMAGE }}:${{ env.IMAGE_VERSION }}
