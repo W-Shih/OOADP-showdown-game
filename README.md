@@ -1,6 +1,6 @@
-# Showdown Card Game with OOADP: Iterative Development and Continuous Refactoring
+# Showdown Card Game with OOADP: Iterative Development, Continuous Refactoring, and DevOps
 
-This project demonstrates the iterative development and continuous refactoring process of **Object-Oriented Analysis, Design, Programming (OOADP), unit tests, and refactoring** through a simple showdown card game.
+This project demonstrates the iterative development, continuous refactoring, and DevOps practices through a simple showdown card game. By combining **Object-Oriented Analysis, Design, Programming (OOADP), unit tests, and refactoring** with modern development tools (e.g. **Docker** and **Vagrant**) and **CI/CD pipelines**, it serves as a hands-on example of how to build scalable and maintainable software for real-world applications.
 
 The project emphasizes
 
@@ -9,33 +9,61 @@ The project emphasizes
 
     > **OOA -> OOD -> OOP -> Unit tests -> Refactoring**
 
-- **Practical Development Environment**:
-  - Leveraging modern tools like **Docker**, **Vagrant**, and **Node.js** to simulate a realistic and efficient development environment.
+- **DevOps and CI/CD pipelines**:
+  - Leveraging **GitHub Actions workflows** to implement **Continuous Integration (CI)** and **Continuous Delivery (CD)** pipelines, enabling automated testing, integration, and deployment.
+  - These practices ensure **high code quality**, early detection of bugs, and consistency across all stages of development and delivery.
+  - Supports multi-architecture compatibility (including **amd64** and **arm64**) in the delivery artifacts.
 
-## Contents [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+- **Practical Development Environment**:
+  - Leveraging modern tools like **Docker** and **Vagrant** to setup a realistic and efficient **Node.js** development environment.
+  - Supports **multi-architecture platforms** (including **amd64** and **arm64**) for broad compatibility.
+
+## Contents [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
 - [Contents \[↑\]](#contents-)
+- [Tech Stack](#tech-stack)
 - [Project Objective \[↑\]](#project-objective-)
 - [Prerequisites \[↑\]](#prerequisites-)
 - [Design Documentation \[↑\]](#design-documentation-)
+- [DevOps and CI/CD pipelines \[↑\]](#devops-and-cicd-pipelines-)
 - [Quick Start \[↑\]](#quick-start-)
-- [Development environment \[↑\]](#development-environment-)
+- [Development Environment \[↑\]](#development-environment-)
 - [Development Commands \[↑\]](#development-commands-)
+- [License](#license)
 
-## Project Objective [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+## Tech Stack
 
-- To demonstrate the **OOA -> OOD -> OOP -> Unit tests -> Refactoring** process.
-- To show the basics of software design and development cycles.
-- Offers hands-on practice with modern tools like Docker, Vagrant, and Node.js.
+- **Programming Language**: TypeScript (Node.js)
+- **Development Tools**: Docker, Vagrant
+- **DevOps Tools**: GitHub Actions
+- **Architecture**: Multi-architecture support (amd64, arm64)
+- **Version Control**: Git
 
 ---
 
-## Prerequisites [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+## Project Objective [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
+
+- To demonstrate the **OOA -> OOD -> OOP -> Unit tests -> Refactoring** process.
+- To illustrate the basics of software design and development cycles.
+- To highlight the importance of **DevOps** practices by:
+  - Building, testing, and delivering the project using **CI/CD pipelines** powered by **GitHub Actions**.
+  - Automating delivery workflows to improve efficiency, reduce manual errors, and **ensure code quality through rigorous automated processes**.
+  - Generating **multi-architecture artifacts/images** (e.g., **amd64**, **arm64**) to ensure compatibility across diverse platforms.
+- Offers hands-on practice with modern development tools:
+  - **Docker** and **Vagrant** for consistent and scalable environment setup across different platforms (e.g., **amd64**, **arm64**).
+  - **GitHub Actions** for implementing robust DevOps pipelines.
+
+---
+
+## Prerequisites [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
 Before starting, ensure you have at least one of the following installed:
 
+> **NOTE:**  
+> The following versions are based on my tested environment. Lower versions may work but are not guaranteed.
+
 - Local development environment:
-  - Node.js (>=20.x)
+  - Node.js (>=18.x)
 - Docker development environment:
   - Docker (>=24.x)
 - Vagrant development environment:
@@ -44,7 +72,7 @@ Before starting, ensure you have at least one of the following installed:
 
 ---
 
-## Design Documentation [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+## Design Documentation [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
 The design documents for this project can be found in the following files located in the `docs/designs` directory:
 
@@ -59,18 +87,28 @@ The design documents for this project can be found in the following files locate
 
 ### OOP - Programming
 
-- [OOP Class Diagram](docs/designs/3.1-OOP-ClassDiagram-Showdown-v0.1.0.png)
-- [OOP Sequence Diagram](docs/designs/3.2-OOP-SeqDiagram-Showdown-v0.1.0.png)
+- [OOP Class Diagram](docs/designs/3.1-OOP-SeqDiagram-Showdown-v1.0.0.png)
+- [OOP Sequence Diagram](docs/designs/3.2-OOP-ClassDiagram-Showdown-v1.0.0.png)
 
 These designs outline the conceptual and logical structures of the game, following the OOADP process.
 
 ---
 
-## Quick Start [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+## DevOps and CI/CD pipelines [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
+
+This section highlights the implementation of modern DevOps practices, focusing on the automation of testing, building, and delivery through CI/CD pipelines. These workflows ensure high efficiency, consistency, and reliability in the development lifecycle.
+
+The CI/CD flowcharts can be found in the following files located in the `docs/devops` directory:
+
+- [CI/CD Flowchart](docs/devops/github-actions-ci-cd-flowchart.png)
+
+---
+
+## Quick Start [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
 You can run the game locally, via Docker, or via Node.js and Docker.
 
-### Run the game locally
+### Run the Game Locally
 
 - If you have local node.js installed, you can run the game by running the following commands:
 
@@ -79,16 +117,24 @@ You can run the game locally, via Docker, or via Node.js and Docker.
   npm run start
   ```
 
-### Run the game via Docker
+### Run the Game via Docker
 
-- If you have Docker installed, you can run the game by running the following commands:
+- If you have Docker installed, you can choose to run the pre-built image or build the image locally:
 
-  ```bash
-  docker build -t showdown-card-game:latest .
-  docker container run --name showdown-card-game --rm -it showdown-card-game:latest
-  ```
+  - Run the pre-built image (supports **amd64** and **arm64** platforms):
 
-### Run the game via Node.js and Docker
+    ```bash
+    docker container run --name showdown-card-game --rm -it wshih/challenge1-showdown-game:latest
+    ```
+
+  - Build the image tailored to your platform and run it:
+
+    ```bash
+    docker build -t showdown-card-game:latest .
+    docker container run --name showdown-card-game --rm -it showdown-card-game:latest
+    ```
+
+### Run the Game via Node.js and Docker
 
 - If you have local node.js and Docker installed, you can run the game by running the following commands:
 
@@ -99,17 +145,18 @@ You can run the game locally, via Docker, or via Node.js and Docker.
 
 ---
 
-## Development environment [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+## Development Environment [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
 This project supports three development setups:
 
-### Local development environment
+### Local Development Environment
 
-- Requires Node.js (>=20.x).
+- Requires Node.js (>=18.x).
 
-### Docker development environment
+### Docker Development Environment
 
 - Requires Docker (>=24.x).
+- Supports multi-architecture platforms, including **amd64**, **arm64**, etc., based on the base image.
 - To set up the containerized development environment:
 
   ```bash
@@ -126,9 +173,10 @@ This project supports three development setups:
 
   Then, remove the corresponding container and image.
 
-### Vagrant development environment
+### Vagrant Development Environment
 
 - Requires VirtualBox (>=7.1) and Vagrant (>=2.4).
+- Supports both **amd64** and **arm64** platforms, ensuring compatibility across different hardware architectures.
 - To start the virtual machine for development:
 
   ```bash
@@ -147,9 +195,9 @@ This project supports three development setups:
 
 ---
 
-## Development Commands [[↑](#showdown-card-game-with-ooadp-iterative-development-and-continuous-refactoring)]
+## Development Commands [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
-### Run unit tests
+### Run Unit Tests
 
 - Run the unit tests with coverage by running the following commands:
 
@@ -157,7 +205,7 @@ This project supports three development setups:
   npm run test:coverage
   ```
 
-### Run lint
+### Run Lint
 
 - Run the lint by running the following commands:
 
@@ -165,7 +213,7 @@ This project supports three development setups:
   npm run lint
   ```
 
-### Clean up
+### Clean Up
 
 - Clean up the environment (`node_modules`, `dist`, `coverage`) by running the following commands:
 
@@ -173,6 +221,10 @@ This project supports three development setups:
   npm run clean
   ```
 
-### More commands
+### More Commands
 
 - See more commands in the `package.json` file.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
