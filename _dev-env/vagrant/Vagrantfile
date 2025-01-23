@@ -1,6 +1,6 @@
 # <Wayne Shih> 29-Dec-2024
 # 設定虛擬機名稱 via 變數 
-VM_NAME = "challenge1-showdown-game"
+VM_NAME = "ooadp-showdown-game"
 HOST_PROJECT_ROOT = File.expand_path("../../..", __FILE__)  # `__FILE__` 表示當前文件的絕對路徑; `File.expand_path` 將返回絕對路徑
 VM_PROJECT_ROOT = "/home/vagrant/project"
 puts "VM Name: #{VM_NAME}"
