@@ -21,7 +21,7 @@ The project emphasizes
 ## Contents [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
 - [Contents \[↑\]](#contents-)
-- [Tech Stack](#tech-stack)
+- [Tech Stack \[↑\]](#tech-stack-)
 - [Project Objective \[↑\]](#project-objective-)
 - [Prerequisites \[↑\]](#prerequisites-)
 - [Design Documentation \[↑\]](#design-documentation-)
@@ -31,7 +31,7 @@ The project emphasizes
 - [Development Commands \[↑\]](#development-commands-)
 - [License](#license)
 
-## Tech Stack
+## Tech Stack [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
 - **Programming Language**: TypeScript (Node.js)
 - **Development Tools**: Docker, Vagrant
@@ -114,7 +114,7 @@ You can run the game locally, via Docker, or via Node.js and Docker.
 
   ```bash
   npm install
-  npm run start
+  npm run start:dev
   ```
 
 ### Run the Game via Docker
@@ -124,14 +124,14 @@ You can run the game locally, via Docker, or via Node.js and Docker.
   - Run the pre-built image (supports **amd64** and **arm64** platforms):
 
     ```bash
-    docker container run --name showdown-card-game --rm -it wshih/challenge1-showdown-game:latest
+    docker container run --name showdown-card-game --rm -it wshih/ooadp-showdown-game:latest
     ```
 
   - Build the image tailored to your platform and run it:
 
     ```bash
     docker build -t showdown-card-game:latest .
-    docker container run --name showdown-card-game --rm -it showdown-card-game:latest
+    docker container run --name showdown-card-game --rm -it ooadp-showdown-game:latest
     ```
 
 ### Run the Game via Node.js and Docker

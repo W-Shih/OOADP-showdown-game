@@ -1,7 +1,7 @@
 {
-  "name": "challenge1-showdown-game",
+  "name": "ooadp-showdown-game",
   "version": "1.0.0",
-  "description": "第一道館挑戰-showdown",
+  "description": "A project demonstrating iterative development and continuous refactoring process of OOADP, unit tests, and refactoring through a simple showdown card game",
   "main": "index.js",
   "scripts": {
     "build": "npm run clean:build && npm run lint && tsc && tsc-alias",
@@ -12,16 +12,20 @@
     "clean:node_modules": "shx rm -rf node_modules",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start": "ts-node -r tsconfig-paths/register --files src",
+    "start:dev": "ts-node -r tsconfig-paths/register --files src",
     "start:container": "npm run build:image && ts-node scripts/docker/startDockerContainer.ts",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register --recursive 'tests/**/*.spec.ts'",
     "test:file": "mocha -r ts-node/register -r tsconfig-paths/register --recursive --exit",
     "test:coverage": "c8 --reporter=lcov --reporter=text --reporter=json-summary -- npm test"
   },
   "keywords": [
-    "道館挑戰",
-    "Showdown",
-    "Game"
+    "OOADP",
+    "Unit Test",
+    "Refactoring",
+    "Iterative Development",
+    "Continuous Refactoring",
+    "Software Design",
+    "Software Development"
   ],
   "directories": {
     "test": "tests"
