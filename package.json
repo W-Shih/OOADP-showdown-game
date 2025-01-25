@@ -2,9 +2,10 @@
   "name": "ooadp-showdown-game",
   "version": "1.0.0",
   "description": "A project demonstrating iterative development and continuous refactoring process of OOADP, unit tests, and refactoring through a simple showdown card game",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "npm run clean:build && npm run lint && tsc && tsc-alias",
+    "build:emitOnError": "npm run clean:build && npm run lint && tsc --noEmitOnError false && tsc-alias",
     "build:image": "ts-node scripts/docker/buildDockerImage.ts",
     "clean": "npm run clean:build && npm run clean:coverage && npm run clean:node_modules",
     "clean:build": "shx rm -rf dist",
