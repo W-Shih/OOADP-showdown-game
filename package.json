@@ -7,6 +7,7 @@
     "build": "npm run clean:build && npm run lint && tsc && tsc-alias",
     "build:emitOnError": "npm run clean:build && npm run lint && tsc --noEmitOnError false && tsc-alias",
     "build:image": "ts-node scripts/docker/buildDockerImage.ts",
+    "build:noEmit": "npm run clean:build && npm run lint && tsc --noEmit && tsc-alias",
     "clean": "npm run clean:build && npm run clean:coverage && npm run clean:image && npm run clean:node_modules",
     "clean:build": "shx rm -rf dist",
     "clean:image": "ts-node scripts/docker/removeDockerImage.ts",
