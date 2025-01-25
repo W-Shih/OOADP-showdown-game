@@ -4,13 +4,13 @@ import { execSync } from 'child_process';
 
 // --------------------------------------------------------------------------------------------------------------------
 // Project modules
-import { getPackageJsonFields } from '../utils';
+import packageJson from '../../package.json';
 
 
 // --------------------------------------------------------------------------------------------------------------------
 try {
     // 取得 package.json 中的 name 和 version
-    const { name, version } = getPackageJsonFields(['name', 'version']);
+    const { name, version } = packageJson;
 
     // 交互式運行 Docker container
     execSync(
