@@ -16,6 +16,9 @@ try {
     execSync(`docker image build -t ${name}:${version} .`, { stdio: 'inherit' });
 }
 catch (error) {
-    console.error('Error during docker image build:', (error as Error).message);
-    process.exit(1);
+    if (error instanceof Error) {  // https://nodejs.org/docs/latest-v20.x/api/child_process.html#child_processexecsynccommand-options
+        console.error('Error during docker image build:', error.message);
+        process.exit(1);
+    }
+    throw error;
 }
