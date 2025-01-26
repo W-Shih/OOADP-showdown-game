@@ -32,7 +32,6 @@ RUN apk update \
 WORKDIR /app
 
 # Copy the rest of the files to /app directory for running the app
-# COPY --chown=node:node package.json ./
 COPY --chown=node:node --from=builder /app/node_modules ./node_modules
 COPY --chown=node:node --from=builder /app/dist ./
 

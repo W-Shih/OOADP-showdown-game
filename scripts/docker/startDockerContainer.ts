@@ -19,6 +19,9 @@ try {
     );
 }
 catch (error) {
-    console.error('Error during docker container run:', (error as Error).message);
-    process.exit(1);
+    if (error instanceof Error) {  // https://nodejs.org/docs/latest-v20.x/api/child_process.html#child_processexecsynccommand-options
+        console.error('Error during docker container run:', error.message);
+        process.exit(1);
+    }
+    throw error;
 }
