@@ -11,7 +11,7 @@ class MockDeck extends Deck {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public shuffle(): void {
+    public override shuffle(): void {
         // Do nothing
     }
 }
