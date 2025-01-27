@@ -20,7 +20,7 @@ class AiPlayer extends Player {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public askExchangeHands(): boolean {
+    public override askExchangeHands(): boolean {
         const exchange = this._randomBoolean();
         if (exchange) {
             this._canExchangeHands = false;
@@ -29,7 +29,7 @@ class AiPlayer extends Player {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public askExchangePlayerIdx(selfIdx: number): number {
+    public override askExchangePlayerIdx(selfIdx: number): number {
         let toPlayerIdx = selfIdx;
         while (toPlayerIdx === selfIdx) {
             toPlayerIdx = this._randomInt(0, NUM_PLAYERS);
@@ -38,7 +38,7 @@ class AiPlayer extends Player {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public show(): Card | null {
+    public override show(): Card | null {
         const numCards = this._cards.length;
         if (numCards === 0) {
             return null;

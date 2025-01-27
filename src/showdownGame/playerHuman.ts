@@ -15,7 +15,7 @@ class HumanPlayer extends Player {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public async askExchangeHands(): Promise<boolean> {
+    public override async askExchangeHands(): Promise<boolean> {
         while (true) {
             const ans = await this._prompt('Do you want to exchange hands? [y/n]: ');
             if (ans === 'y') {
@@ -30,7 +30,7 @@ class HumanPlayer extends Player {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public async askExchangePlayerIdx(selfIdx: number): Promise<number> {
+    public override async askExchangePlayerIdx(selfIdx: number): Promise<number> {
         const message = 'Which player do you want to exchange hands with? '
             + `(0: P1, 1: P2, 2: P3, 3: P4, but not yourself ${selfIdx}: P${selfIdx + 1}) `
             + `[0-${NUM_PLAYERS - 1}]: `;
@@ -51,7 +51,7 @@ class HumanPlayer extends Player {
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public async show(): Promise<Card | null> {
+    public override async show(): Promise<Card | null> {
         const numCards = this._cards.length;
         if (numCards === 0) {
             return null;

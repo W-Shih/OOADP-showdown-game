@@ -6,17 +6,17 @@ import { Player } from '../../src/showdownGame';
 
 // --------------------------------------------------------------------------------------------------------------------
 class MockPlayer extends Player {
-    public askExchangeHands(): boolean {
+    public override askExchangeHands(): boolean {
         return false;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public askExchangePlayerIdx(selfIdx: number): number {  // eslint-disable-line @typescript-eslint/no-unused-vars
+    public override askExchangePlayerIdx(selfIdx: number): number {  // eslint-disable-line @typescript-eslint/no-unused-vars
         return -1;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
-    public show(): Card | null {
+    public override show(): Card | null {
         if (this._cards.length === 0) {
             return null;
         }
