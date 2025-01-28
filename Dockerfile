@@ -21,7 +21,7 @@ RUN npm prune --omit=dev \
 
 # =====================================================================================================================
 # Stage 2: build the final image
-FROM node:20.18-alpine3.20
+FROM node:22.13-alpine3.21
 
 # Update the package list, upgrade installed packages, install ca-certificates, curl, and remove cache files
 RUN apk update \
