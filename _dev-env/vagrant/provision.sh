@@ -16,9 +16,11 @@ if ! command -v node &> /dev/null; then
       wget \
 
   # 安裝 Node.js 和 npm
-  curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+  # https://github.com/nodesource/distributions
+  curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs \
-    && npm install -g npm@latest \
+    # && npm install -g npm@latest \
+    && npm install -g npm@11.0.0 \
     && npm cache clean --force
 
   # 清理快取
