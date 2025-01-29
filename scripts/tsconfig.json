@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.base.json",  // 繼承根目錄配置, 相對於當前 tsconfig.json 的位置的相對路徑
+  "compilerOptions": {
+    "rootDir": "./",  // 將 rootDir 限制為 scripts 目錄, 相對於當前 tsconfig.json 的位置的相對路徑
+    "noEmit": true  // 避免生成輸出文件
+  },
+  "include": ["./**/*.ts"],  // 僅包當前目錄及子目錄下的 ts 文件, 相對於當前 tsconfig.json 的位置的相對路徑
+  "exclude": ["./node_modules"]  // 相對於當前 tsconfig.json 的位置的相對路徑
+}
