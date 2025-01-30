@@ -1,4 +1,4 @@
-name: Node.js CD (Delivery) Workflow
+name: CD (Delivery)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
   #   - the workflow named `Node.js CI Workflow` completed on the `main` branch.
   workflow_run:
     workflows:
-      - Node.js CI Workflow
+      - CI
     types:
       - completed
     branches:
