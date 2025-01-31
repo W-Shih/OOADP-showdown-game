@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/ci.yml/badge.svg)](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/ci.yml?query=branch%3Amain)
 [![CD](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/cd.yml/badge.svg)](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/cd.yml?query=branch%3Amain)
+[![Codecov test coverage](https://codecov.io/gh/W-Shih/OOADP-showdown-game/branch/main/graph/badge.svg)](https://app.codecov.io/gh/W-Shih/OOADP-showdown-game?branch=main)
 [![Docker Image Version (tag)](https://img.shields.io/docker/v/wshih/ooadp-showdown-game/latest?label=dockerhub)](https://hub.docker.com/repository/docker/wshih/ooadp-showdown-game/general)
 [![multi-arch images (Static Badge)](https://img.shields.io/badge/multi--arch%20images-amd64%2C%20arm64-blue)](https://hub.docker.com/repository/docker/wshih/ooadp-showdown-game/general)
 [![GitHub License](https://img.shields.io/github/license/W-Shih/OOADP-showdown-game)](./LICENSE)
