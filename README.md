@@ -3,6 +3,7 @@
 [![CI](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/ci.yml/badge.svg)](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/ci.yml?query=branch%3Amain)
 [![CD](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/cd.yml/badge.svg)](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/cd.yml?query=branch%3Amain)
 [![Docker Image Version (tag)](https://img.shields.io/docker/v/wshih/ooadp-showdown-game/latest?label=dockerhub)](https://hub.docker.com/repository/docker/wshih/ooadp-showdown-game/general)
+[![multi-arch images (Static Badge)](https://img.shields.io/badge/multi--arch%20images-amd64%2C%20arm64-blue)](https://hub.docker.com/repository/docker/wshih/ooadp-showdown-game/general)
 [![GitHub License](https://img.shields.io/github/license/W-Shih/OOADP-showdown-game)](./LICENSE)
 
 This project demonstrates the iterative development, continuous refactoring, and DevOps practices through a simple showdown card game. By combining **Object-Oriented Analysis, Design, Programming (OOADP), unit tests, and refactoring** with modern development tools (e.g. **Docker** and **Vagrant**) and **CI/CD pipelines**, it serves as a hands-on example of how to build scalable and maintainable software for real-world applications.
