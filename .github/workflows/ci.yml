@@ -64,7 +64,15 @@ jobs:
           name: code-coverage-report
           path: coverage/
 
+      # https://github.com/marketplace/actions/codecov
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      # https://github.com/marketplace/actions/codacy-coverage-reporter
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage/lcov.info
