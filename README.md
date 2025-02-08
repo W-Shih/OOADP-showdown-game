@@ -1,5 +1,6 @@
 # Showdown Card Game with OOADP: Iterative Development, Continuous Refactoring, and DevOps
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e6ae516c4fdb44de9da5f157deecc3a9)](https://app.codacy.com/gh/W-Shih/OOADP-showdown-game?utm_source=github.com&utm_medium=referral&utm_content=W-Shih/OOADP-showdown-game&utm_campaign=Badge_Grade)
 [![CI](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/ci.yml/badge.svg)](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/ci.yml?query=branch%3Amain)
 [![CD](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/cd.yml/badge.svg)](https://github.com/W-Shih/OOADP-showdown-game/actions/workflows/cd.yml?query=branch%3Amain)
 [![Codecov test coverage](https://codecov.io/gh/W-Shih/OOADP-showdown-game/branch/main/graph/badge.svg)](https://app.codecov.io/gh/W-Shih/OOADP-showdown-game/tree/main)
