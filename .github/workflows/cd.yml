@@ -8,7 +8,7 @@ on:
   #   - the workflow named `Node.js CI Workflow` completed on the `main` branch.
   workflow_run:
     workflows:
-      - CI
+      - CI (lint, test, build)
     types:
       - completed
     branches:
