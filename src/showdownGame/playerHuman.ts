@@ -37,13 +37,13 @@ class HumanPlayer extends Player {
         while (true) {
             const ans = await this._prompt(message);
             if (!isValidIntegerInRange(ans, 0, NUM_PLAYERS - 1)) {
-                console.log(`Please enter a number between 0 and ${NUM_PLAYERS - 1}.`);
+                console.warn(`Please enter a number between 0 and ${NUM_PLAYERS - 1}.`);
                 continue;
             }
 
             const idx = parseInt(ans, 10);
             if (idx === selfIdx) {
-                console.log('You cannot exchange hands with yourself.');
+                console.warn('You cannot exchange hands with yourself.');
                 continue;
             }
             return idx;
@@ -59,13 +59,13 @@ class HumanPlayer extends Player {
 
         console.log('Your cards:');
         for (let i = 0; i < numCards; i++) {
-            console.log(`${i}: ${this._cards[i]}`);
+            console.log(`${i}: ${this._cards[i]!.toString()}`);
         }
 
         while (true) {
             const ans = await this._prompt(`Please enter which card you want to show [0-${numCards - 1}]: `);
             if (!isValidIntegerInRange(ans, 0, numCards - 1)) {
-                console.log(`Please enter a number between 0 and ${numCards - 1}.`);
+                console.warn(`Please enter a number between 0 and ${numCards - 1}.`);
                 continue;
             }
 
