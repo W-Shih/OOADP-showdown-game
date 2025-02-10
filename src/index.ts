@@ -27,4 +27,6 @@ const players: Player[] = [
 const deck = _createDeck();
 
 const game = new ShowdownGame(players, deck);
-game.start();
+game.start().catch((error) => {
+    console.error('Error during the game:', error);
+});
