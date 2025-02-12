@@ -7,6 +7,10 @@ on:
       - opened
       - reopened
 
+permissions:
+  id-token: write  # 啟用 OIDC token
+  contents: read
+
 jobs:
   ci:
     name: Continuous Integration (CI)
@@ -68,7 +72,7 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@13ce06bfc6bbe3ecf90edbbf1bc32fe5978ca1d3  # https://github.com/codecov/codecov-action/releases/tag/v5.3.1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use_oidc: true  # https://github.com/marketplace/actions/codecov#using-oidc
 
       # https://github.com/marketplace/actions/codacy-coverage-reporter
       - name: Run codacy-coverage-reporter
