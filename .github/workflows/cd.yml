@@ -41,7 +41,7 @@ jobs:
         uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567  # https://github.com/docker/login-action/releases/tag/v3.3.0
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}  # https://github.com/docker/roadmap/issues/314#issuecomment-2605945137
 
       - name: Set IMAGE_NAME and IMAGE_VERSION
         run: |

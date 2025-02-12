@@ -1,3 +1,4 @@
+# https://docs.codacy.com/repositories-configure/codacy-configuration-file/#using-a-codacy-configuration-file
 ---
 engines:
   duplication:
