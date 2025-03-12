@@ -19,9 +19,9 @@ if ! command -v node &> /dev/null; then
   # https://github.com/nodesource/distributions
   curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs \
-    # && npm install -g npm@latest \
     && npm install -g npm@11.0.0 \
     && npm cache clean --force
+  # npm install -g npm@latest
 
   # 清理快取
   apt-get clean \
