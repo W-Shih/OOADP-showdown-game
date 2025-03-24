@@ -10,8 +10,12 @@ ARG WORKDIR=/home/$DEFAULT_USER/workdir
 
 # ---------------------------------------------------------------------------------------------------------------------
 # 更新系統、安裝基本工具, node.js, 並清理快取
+# Note:
+#   多數系統工具對升級影響較小, 建議保持最新, 不需要鎖定版本.
+#   但對於應用層工具, e.g. python 和 node.js 等工具, 建議鎖定版本, 因為這些工具的升級可能會導致不兼容的變更.
 RUN apt-get update \
     && apt-get install -y \
+        bash-completion \
         curl \
         dos2unix \
         sudo \
@@ -21,6 +25,7 @@ RUN apt-get update \
     # https://github.com/nodesource/distributions
     && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs \
+    # 不推薦使用最新版本的 npm, 因為這樣會導致環境不一致
     # && npm install -g npm@latest \
     && npm install -g npm@11.0.0 \
     && npm cache clean --force \
@@ -47,20 +52,38 @@ WORKDIR ${WORKDIR}
 USER ${DEFAULT_USER}
 
 # ---------------------------------------------------------------------------------------------------------------------
-# 複製並設置 entrypoint 腳本
+# 複製腳本
+# Note:
+#   由於 configure-bashrc.sh 與 Dockerfile 不在同一目錄下, 所以 docker image build 時必須指定 build context 
+#   為 _dev-env 目錄, e.g. 
+#     $ docker build -t dev-env-image -f docker/Dockerfile.dev-env _dev-env
+# 
+# 設定環境變數
+ENV BIN_DIR=/usr/local/bin
+ENV PATH=${BIN_DIR}:${PATH}
+
+# 複製腳本到容器中
+COPY ./shared/configure-bashrc.sh ${BIN_DIR}
+COPY ./docker/docker-entrypoint.sh ${BIN_DIR}
+
+# 處理換行符號，避免在 Windows 編輯腳本後有換行問題
+# Note:
+#     雖然當前是非 root 用戶, 但當使用 RUN sudo 執行命令時, 該命令會以 root 用戶身份執行, 而非以當前用戶身份執行 sudo.
+RUN sudo dos2unix ${BIN_DIR}/*.sh
+
+# 執行環境配置腳本
+RUN ${BIN_DIR}/configure-bashrc.sh
+
+# ---------------------------------------------------------------------------------------------------------------------
+# 設置 entrypoint 腳本
 # Reference:
 #   - https://github.com/docker-library/postgres/blob/master/17/alpine3.21/Dockerfile
 #   - https://github.com/redis/docker-library-redis/blob/master/7.4/alpine/Dockerfile
 #   - https://github.com/docker-library/memcached/blob/master/1/alpine/Dockerfile
 # Note:
-#   由於 configure-bashrc.sh 與 Dockerfile 不在同一目錄下, 所以 docker image build 時必須指定 build context 
-#   為 _dev-env 目錄, e.g. 
-#     $ docker build -t dev-env-image -f docker/Dockerfile.dev-env _dev-env
-ENV BIN_DIR=/usr/local/bin
-ENV PATH=$BIN_DIR:$PATH
-COPY ./shared/configure-bashrc.sh ${BIN_DIR}
-COPY ./docker/docker-entrypoint.sh ${BIN_DIR}
-RUN sudo dos2unix ${BIN_DIR}/*.sh
+#   ENTRYPOINT 指令用於設定容器啟動時執行的預設命令. 它定義了容器的主要用途，即容器啟動時應該執行的應用程式或腳本.
+#   每次容器啟動都會執行 ENTRYPOINT, 所以 docker-entrypoint.sh 應該專注於應用程式啟動的必要步驟，而不是一次性的環境配置.
+#   一次性的環境配置應該在 Dockerfile 中使用 RUN 指令完成.
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 # ---------------------------------------------------------------------------------------------------------------------
