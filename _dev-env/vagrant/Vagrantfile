@@ -111,7 +111,7 @@ Vagrant.configure("2") do |config|
 
   # <Wayne Shih> 29-Dec-2024
   # 修改 vagrant ssh 的預設目錄
-  config.ssh.extra_args = ['-t', 'cd /home/vagrant/project && bash']
+  config.ssh.extra_args = ['-t', "cd #{VM_PROJECT_ROOT} && bash"]
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -138,6 +138,7 @@ Vagrant.configure("2") do |config|
   # 
   # <Wayne Shih> 29-Dec-2024
   # 使用 provision.sh 進行環境設定
+  # provision.sh 只在 vagrant up 第一次執行時運行, 之後需要手動強制運行
   config.vm.provision "shell", path: "./provision.sh", env: {
     "VM_PROJECT_ROOT" => VM_PROJECT_ROOT
   }
