@@ -15,12 +15,13 @@
     "clean:node_modules": "shx rm -rf node_modules",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "lint:src": "eslint src/ --fix",
+    "lint:src": "eslint src/",
+    "lint:src:fix": "eslint src/ --fix",
     "start:dev": "ts-node -r tsconfig-paths/register --files src",
     "start:container": "npm run build:image && ts-node scripts/docker/startDockerContainer.ts && npm run clean:image",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register --recursive 'tests/**/*.spec.ts'",
-    "test:file": "mocha -r ts-node/register -r tsconfig-paths/register --recursive --exit",
-    "test:coverage": "c8 --reporter=lcov --reporter=text --reporter=json-summary -- npm test"
+    "test:coverage": "c8 --reporter=lcov --reporter=text --reporter=json-summary -- npm test",
+    "test:file": "mocha -r ts-node/register -r tsconfig-paths/register --recursive --exit"
   },
   "keywords": [
     "OOADP",
