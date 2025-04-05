@@ -40,7 +40,7 @@ The project emphasizes
 - [Quick Start \[↑\]](#quick-start-)
 - [Development Environment \[↑\]](#development-environment-)
 - [Development Commands \[↑\]](#development-commands-)
-- [License](#license)
+- [License \[↑\]](#license-)
 
 ## Tech Stack [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
@@ -236,6 +236,8 @@ This project supports three development setups:
 
 - See more commands in the `package.json` file.
 
-## License
+---
+
+## License [[↑](#showdown-card-game-with-ooadp-iterative-development-continuous-refactoring-and-devops)]
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
